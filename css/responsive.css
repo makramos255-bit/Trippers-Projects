@@ -1,0 +1,126 @@
+/* ==========================================================================
+   TRIPPERS COFFEE — Responsive Overrides (loaded last)
+   ========================================================================== */
+
+/* ------------------------------------------------------------ <= 1200px */
+@media (max-width: 1200px) {
+  .content { padding: 1.25rem; }
+}
+
+/* ------------------------------------------------------------ <= 992px */
+@media (max-width: 992px) {
+  .sidebar { transform: translateX(-100%); box-shadow: none; }
+  .sidebar.show { transform: translateX(0); box-shadow: 0 0 60px rgba(0, 0, 0, .7); }
+  .main-wrap { margin-left: 0; }
+  .topbar { padding: .6rem 1rem; }
+  .content { padding: 1.1rem; }
+  .page-title { font-size: 1.28rem; }
+  .page-head { align-items: flex-start; }
+  .top-clock .tc-date { display: none; }
+  .dash-grid.three { grid-template-columns: minmax(0, 1fr); }
+  .notif-menu { width: 320px; }
+}
+
+/* ------------------------------------------------------------ <= 768px */
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+  .content { padding: 1rem .85rem 1.4rem; }
+  .page-head { gap: .6rem; margin-bottom: 1rem; }
+  .page-actions { width: 100%; }
+  .page-actions .btn { flex: 1 1 auto; }
+  .panel-head { padding: .8rem .9rem; flex-wrap: wrap; }
+  .panel-body { padding: .9rem; }
+  .stat-card { padding: .9rem 1rem; }
+  .stat-value { font-size: 1.42rem; }
+  .toolbar { padding: .7rem .8rem; }
+  .toolbar .form-select { flex: 1 1 45%; width: 45%; min-width: 0; }
+  .toolbar-spacer { display: none; }
+  .table-premium thead th { padding: .6rem .65rem; font-size: .62rem; }
+  .table-premium tbody td { padding: .6rem .65rem; font-size: .82rem; }
+  .modal-dialog { margin: .6rem; }
+  .modal-body { padding: 1rem; }
+  .topbar-sub { display: none; }
+  .top-clock { display: none; }
+  .toast-stack { left: 12px; right: 12px; bottom: 12px; width: auto; }
+  .chart-wrap canvas { min-height: 190px; }
+  .filter-bar { padding: .8rem; gap: .5rem; }
+  .kpi-grid { gap: .6rem; }
+  .product-grid { gap: .75rem; }
+  .detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ------------------------------------------------------------ <= 576px */
+@media (max-width: 576px) {
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+  .stat-value { font-size: 1.18rem; }
+  .stat-icon { width: 34px; height: 34px; font-size: .9rem; }
+  .stat-label { font-size: .72rem; }
+  .summary-strip { grid-template-columns: minmax(0, 1fr); }
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi .k2 { font-size: 1.1rem; }
+  .auth-card { padding: 1.5rem 1.25rem 1.4rem; }
+  .auth-emblem { width: 176px; height: 176px; }
+  .emblem-logo { width: 146px; }
+  .auth-sub { letter-spacing: .2em; font-size: .66rem; }
+  .notif-menu { width: calc(100vw - 24px); }
+  .pos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+  .pos-menu { padding: .75rem .6rem 90px; }
+  .pos-topbar { padding: .5rem .65rem; gap: .5rem; }
+  .pos-topbar .brand-text { display: none; }
+  .pos-shift { border-left: 0; padding-left: 0; font-size: .72rem; }
+  #posShiftDate, #posClockBtn { display: none !important; }
+  .pay-methods { grid-template-columns: repeat(3, 1fr); gap: .3rem; }
+  .pay-method { font-size: .72rem; padding: .5rem .2rem; }
+  .quick-cash { grid-template-columns: repeat(4, 1fr); }
+  .detail-grid { grid-template-columns: minmax(0, 1fr); }
+  .recipe-row { flex-wrap: wrap; }
+  .recipe-row .r-qty { flex: 1 1 70px; }
+  .recipe-row .r-unit { flex: 0 0 44px; }
+  .page-actions { gap: .4rem; }
+}
+
+/* ------------------------------------------------------------ <= 400px */
+@media (max-width: 400px) {
+  .pos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pos-tile-name { font-size: .76rem; }
+  .pos-tile-price { font-size: .85rem; }
+  .quick-cash { grid-template-columns: repeat(3, 1fr); }
+  .cart-line img { display: none; }
+}
+
+/* ------------------------------------------------------------ Landscape phones */
+@media (max-height: 520px) and (max-width: 900px) {
+  .pos-cart { max-height: 94vh; }
+  .pos-cart .cart-items { max-height: 26vh; }
+}
+
+/* ------------------------------------------------------------ Short viewports */
+@media (max-height: 820px) {
+  .auth-emblem { width: 164px; height: 164px; margin-bottom: 0; }
+  .emblem-logo { width: 136px; }
+  .auth-card { padding-top: 1.4rem; }
+  .auth-sub { margin-bottom: 1.1rem; }
+}
+@media (max-height: 700px) {
+  .auth-emblem { width: 112px; height: 112px; margin-bottom: -.2rem; }
+  .emblem-logo { width: 94px; }
+  .auth-card { padding: 1rem 1.25rem 1rem; }
+  .auth-sub { margin: .1rem 0 .8rem; }
+}
+@media (max-height: 660px) {
+  .auth-view { padding: 1rem; }
+  .auth-emblem { width: 96px; height: 96px; }
+  .emblem-logo { width: 80px; }
+}
+
+/* ------------------------------------------------------------ Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0ms !important;
+  }
+  .modal-backdrop { backdrop-filter: none; }
+}

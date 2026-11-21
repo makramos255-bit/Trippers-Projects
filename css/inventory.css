@@ -1,0 +1,65 @@
+/* ==========================================================================
+   TRIPPERS COFFEE — Inventory Management
+   ========================================================================== */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  padding: .9rem 1.05rem;
+  border-bottom: 1px solid var(--border);
+}
+.toolbar .search-box { flex: 1 1 240px; min-width: 180px; max-width: 340px; }
+.toolbar .form-select { width: auto; min-width: 150px; }
+.toolbar-spacer { flex: 1 1 auto; }
+
+.stock-meter { display: flex; align-items: center; gap: .5rem; min-width: 120px; }
+.stock-meter .progress-thin { flex: 1 1 auto; min-width: 52px; }
+.stock-meter .qty {
+  font-weight: 700;
+  font-size: .84rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 38px;
+  text-align: right;
+}
+.qty.low { color: #f0c079; }
+.qty.out { color: #f19693; }
+.qty.ok { color: #7ddab0; }
+
+.stock-legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .72rem; color: var(--muted); }
+.stock-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.dot.ok { background: var(--success); }
+.dot.low { background: var(--warning); }
+.dot.out { background: var(--danger); }
+
+.money { font-variant-numeric: tabular-nums; }
+
+.detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.detail-cell {
+  background: #211e1a;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .6rem .75rem;
+}
+.detail-cell .d1 { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: #8b8375; }
+.detail-cell .d2 { font-size: .9rem; color: #f1ece2; font-weight: 600; margin-top: .15rem; word-break: break-word; }
+
+.move-row {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .45rem 0; border-bottom: 1px solid #302b24;
+  font-size: .78rem;
+}
+.move-row:last-child { border-bottom: 0; }
+.move-row .m-in { color: #7ddab0; }
+.move-row .m-out { color: #f19693; }
+
+.inline-form-row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.inline-form-row > * { flex: 1 1 140px; }
+
+@media (max-width: 576px) {
+  .toolbar .search-box { max-width: none; flex: 1 1 100%; }
+  .toolbar .form-select { flex: 1 1 45%; width: 45%; min-width: 0; }
+  .detail-grid { grid-template-columns: minmax(0, 1fr); }
+}

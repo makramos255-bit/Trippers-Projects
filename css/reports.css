@@ -1,0 +1,67 @@
+/* ==========================================================================
+   TRIPPERS COFFEE — Reports & Analytics
+   ========================================================================== */
+
+.filter-bar {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+}
+.filter-bar .f-group { display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
+.filter-bar .f-group .form-label { margin: 0; }
+.filter-bar .f-group .form-control, .filter-bar .f-group .form-select { font-size: .84rem; padding: .45rem .6rem; }
+.filter-bar .f-date { flex: 1 1 130px; max-width: 165px; }
+.filter-bar .f-select { flex: 1 1 150px; max-width: 190px; }
+.filter-bar .f-actions { display: flex; gap: .4rem; margin-left: auto; flex-wrap: wrap; }
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .85rem;
+  margin-bottom: 1rem;
+}
+.kpi {
+  background: #211e1a;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .85rem .95rem;
+}
+.kpi .k1 { font-size: .66rem; letter-spacing: .11em; text-transform: uppercase; color: #8b8375; }
+.kpi .k2 { font-size: 1.32rem; font-weight: 700; margin-top: .25rem; color: #fff; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi .k3 { font-size: .7rem; color: var(--muted); margin-top: .15rem; }
+.kpi.gold { border-color: rgba(var(--gold-rgb), .34); background: rgba(var(--gold-rgb), .05); }
+.kpi.gold .k2 { color: var(--gold-light); }
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.report-grid.wide-left { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+.report-grid.full { grid-template-columns: minmax(0, 1fr); }
+
+.legend { display: flex; gap: .9rem; flex-wrap: wrap; font-size: .72rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+.rank-table td .rank-bar { display: flex; align-items: center; gap: .5rem; }
+.rank-table .progress-thin { width: 70px; }
+
+.export-note { font-size: .72rem; color: #8b8375; }
+
+@media (max-width: 1100px) {
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 992px) {
+  .report-grid, .report-grid.wide-left { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 576px) {
+  .kpi-grid { grid-template-columns: minmax(0, 1fr); }
+  .filter-bar .f-date, .filter-bar .f-select { max-width: none; flex: 1 1 45%; }
+  .filter-bar .f-actions { margin-left: 0; width: 100%; }
+  .filter-bar .f-actions .btn { flex: 1 1 auto; }
+}

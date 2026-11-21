@@ -1,0 +1,166 @@
+/* ==========================================================================
+   TRIPPERS COFFEE — Admin Dashboard
+   ========================================================================== */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.35rem;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.stat-card::after {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--gold);
+  opacity: .85;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: #4d4437; box-shadow: var(--shadow); }
+.stat-card .stat-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
+.stat-icon {
+  width: 40px; height: 40px;
+  border-radius: 11px;
+  background: rgba(var(--gold-rgb), .1);
+  border: 1px solid rgba(var(--gold-rgb), .25);
+  color: var(--gold);
+  display: grid; place-items: center;
+  font-size: 1.05rem;
+  flex: 0 0 auto;
+  transition: transform .26s var(--ease-spring), background-color .2s ease, border-color .2s ease;
+}
+.stat-card:hover .stat-icon { transform: translateY(-2px) scale(1.07); }
+.stat-icon.green { background: rgba(63, 166, 117, .1); border-color: rgba(63, 166, 117, .26); color: #6fd0a3; }
+.stat-icon.amber { background: rgba(224, 163, 62, .1); border-color: rgba(224, 163, 62, .26); color: #eec078; }
+.stat-icon.red { background: rgba(217, 83, 79, .1); border-color: rgba(217, 83, 79, .26); color: #ef8b88; }
+.stat-value {
+  font-size: 1.62rem;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  line-height: 1.1;
+  margin: .8rem 0 .1rem;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.stat-label { font-size: .78rem; color: var(--muted); }
+.stat-foot { display: flex; align-items: center; gap: .4rem; margin-top: .6rem; font-size: .7rem; color: #8b8375; }
+
+/* Six KPI cards: a calm 3 × 2 grid on desktop. */
+.stat-grid.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat-grid.six .stat-value { font-size: 1.48rem; }
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.dash-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dash-grid.even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.chart-wrap { position: relative; width: 100%; }
+.chart-wrap canvas { display: block; width: 100%; }
+.chart-empty {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  color: #6f6759; font-size: .82rem;
+  text-align: center;
+}
+
+.summary-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+.summary-cell {
+  background: #211e1a;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: .75rem .85rem;
+}
+.summary-cell .s1 { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: #8b8375; }
+.summary-cell .s2 { font-size: 1.08rem; font-weight: 700; margin-top: .2rem; font-variant-numeric: tabular-nums; }
+.summary-cell .s3 { font-size: .7rem; color: var(--muted); }
+
+.best-list { display: flex; flex-direction: column; gap: .8rem; }
+.best-row { display: flex; align-items: center; gap: .65rem; }
+.best-thumb {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #1b1814;
+  display: grid; place-items: center;
+  color: #8b8375;
+  flex: 0 0 auto;
+}
+.best-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.best-thumb .bi { font-size: 1rem; }
+.best-rank {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: #2e2922;
+  color: #a09788;
+  font-size: .68rem; font-weight: 700;
+  display: grid; place-items: center;
+  flex: 0 0 auto;
+}
+.best-row:first-child .best-rank { background: rgba(var(--gold-rgb), .18); color: var(--gold-light); }
+.best-main { flex: 1 1 auto; min-width: 0; }
+.best-name { font-size: .82rem; color: #eee9df; font-weight: 600; display: flex; justify-content: space-between; gap: .5rem; }
+.best-name span:last-child { color: var(--gold-light); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.alert-item {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .6rem 0;
+  border-bottom: 1px solid #302b24;
+}
+.alert-item:last-child { border-bottom: 0; }
+.alert-item .a1 { font-size: .82rem; font-weight: 600; color: #f1ece2; line-height: 1.2; }
+.alert-item .a2 { font-size: .7rem; color: var(--muted); }
+.alert-item .a-main { flex: 1 1 auto; min-width: 0; }
+
+.staff-row {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .55rem 0;
+  border-bottom: 1px solid #302b24;
+}
+.staff-row:last-child { border-bottom: 0; }
+.staff-row .avatar { width: 32px; height: 32px; font-size: .72rem; }
+.staff-name { font-size: .82rem; font-weight: 600; color: #f1ece2; line-height: 1.2; }
+
+.recent-mini tbody td { padding: .6rem .75rem !important; }
+
+.quick-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+.quick-action {
+  display: flex; align-items: center; gap: .55rem;
+  background: #211e1a;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .65rem .7rem;
+  color: #ddd6c9;
+  font-size: .8rem;
+  font-weight: 500;
+  transition: .15s ease;
+  text-align: left;
+}
+.quick-action:hover { border-color: var(--gold); color: #fff; background: #272219; }
+.quick-action .bi { color: var(--gold); font-size: .95rem; }
+
+@media (max-width: 1200px) {
+  .stat-grid, .stat-grid.six { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 992px) {
+  .dash-grid, .dash-grid.three, .dash-grid.even { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 576px) {
+  .stat-grid, .stat-grid.six { grid-template-columns: minmax(0, 1fr); }
+  .summary-strip { grid-template-columns: minmax(0, 1fr); }
+  .quick-actions { grid-template-columns: minmax(0, 1fr); }
+}
