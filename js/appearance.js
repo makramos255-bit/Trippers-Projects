@@ -7,12 +7,20 @@
   "use strict";
 
   var KEY = "trippers.appearance";
+  var loadedUser = null;
+
+  function storageKey() {
+    if (!window.Store || !window.Store.db) return KEY;
+    var user = window.Auth && window.Auth.user ? window.Auth.user() : null;
+    return user ? KEY + "." + user.id : KEY;
+  }
 
   var DEFAULTS = {
     theme: "dark",
     accent: "gold",
     customAccent: "#d4af37",
     sidebar: "expanded",
+    surface: "classic",
     density: "comfortable",
     font: "medium"
   };
@@ -116,7 +124,10 @@
   /* ------------------------------------------------------------- storage */
   function read() {
     var raw = null;
-    try { raw = window.localStorage.getItem(KEY); } catch (e) { raw = null; }
+    try { raw = window.localStorage.getItem(storageKey()); } catch (e) { raw = null; }
+    if (!raw && storageKey() !== KEY) {
+      try { raw = window.localStorage.getItem(KEY); } catch (e) { raw = null; }
+    }
     var data = {};
     if (raw) {
       try { data = JSON.parse(raw) || {}; } catch (e) { data = {}; }
@@ -125,6 +136,7 @@
     if (["dark", "light", "system"].indexOf(merged.theme) === -1) merged.theme = "dark";
     if (["gold", "brown", "black", "custom"].indexOf(merged.accent) === -1) merged.accent = "gold";
     if (["expanded", "collapsed"].indexOf(merged.sidebar) === -1) merged.sidebar = "expanded";
+    if (["classic", "espresso", "soft"].indexOf(merged.surface) === -1) merged.surface = "classic";
     if (["comfortable", "compact"].indexOf(merged.density) === -1) merged.density = "comfortable";
     if (["small", "medium", "large"].indexOf(merged.font) === -1) merged.font = "medium";
     if (!parseHex(merged.customAccent)) merged.customAccent = DEFAULTS.customAccent;
@@ -133,7 +145,7 @@
 
   function write(prefs) {
     try {
-      window.localStorage.setItem(KEY, JSON.stringify(prefs));
+      window.localStorage.setItem(storageKey(), JSON.stringify(prefs));
       return true;
     } catch (e) {
       if (window.App && window.App.toast) window.App.toast("Could not save appearance preferences.", "danger");
@@ -151,6 +163,7 @@
     root.setAttribute("data-theme", theme);
     root.setAttribute("data-accent", prefs.accent);
     root.setAttribute("data-sidebar", prefs.sidebar);
+    root.setAttribute("data-surface", prefs.surface || "classic");
     root.setAttribute("data-density", prefs.density);
     root.setAttribute("data-font", prefs.font);
 
@@ -246,6 +259,7 @@
     markGroup("[data-app-theme]", "data-app-theme", p.theme);
     markGroup("[data-app-accent]", "data-app-accent", p.accent);
     markGroup("[data-app-sidebar]", "data-app-sidebar", p.sidebar);
+    markGroup("[data-app-surface]", "data-app-surface", p.surface || "classic");
     markGroup("[data-app-density]", "data-app-density", p.density);
     markGroup("[data-app-font]", "data-app-font", p.font);
 
@@ -272,6 +286,7 @@
     var theme = document.querySelector("[data-app-theme].active");
     var accent = document.querySelector("[data-app-accent].active");
     var sidebar = document.querySelector("[data-app-sidebar].active");
+    var surface = document.querySelector("[data-app-surface].active");
     var density = document.querySelector("[data-app-density].active");
     var font = document.querySelector("[data-app-font].active");
     var custom = document.getElementById("setAccentCustom");
@@ -280,6 +295,7 @@
       accent: accent ? accent.getAttribute("data-app-accent") : p.accent,
       customAccent: custom ? custom.value : p.customAccent,
       sidebar: sidebar ? sidebar.getAttribute("data-app-sidebar") : p.sidebar,
+      surface: surface ? surface.getAttribute("data-app-surface") : (p.surface || "classic"),
       density: density ? density.getAttribute("data-app-density") : p.density,
       font: font ? font.getAttribute("data-app-font") : p.font
     };
@@ -320,6 +336,13 @@
         previewFromControls();
       });
     });
+    document.querySelectorAll("[data-app-surface]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll("[data-app-surface]").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        previewFromControls();
+      });
+    });
     document.querySelectorAll("[data-app-density]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         document.querySelectorAll("[data-app-density]").forEach(function (b) { b.classList.remove("active"); });
@@ -355,7 +378,7 @@
         var p = draftFromControls();
         if (!parseHex(p.customAccent)) p.customAccent = DEFAULTS.customAccent;
         if (save(p)) {
-          if (window.App) window.App.toast("Appearance saved for this browser.", "success");
+          if (window.App) window.App.toast("Appearance saved to your account.", "success");
         }
       });
     }
@@ -413,9 +436,17 @@
     return saved;
   }
 
+  function loadForUser(user) {
+    var id = user ? user.id : null;
+    if (loadedUser === id) return;
+    loadedUser = id;
+    use(read(), { silentCharts: true });
+  }
+
   window.Appearance = {
     defaults: DEFAULTS,
     init: init,
+    loadForUser: loadForUser,
     get: get,
     read: read,
     apply: apply,

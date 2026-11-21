@@ -9,6 +9,24 @@
   margin-bottom: 1.35rem;
 }
 
+.dash-section-heading {
+  margin: 1.2rem 0 .7rem;
+  padding-bottom: .55rem;
+  border-bottom: 1px solid var(--border);
+}
+.dash-section-heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: .94rem;
+  font-weight: 650;
+}
+.dash-section-heading p {
+  margin: .2rem 0 0;
+  color: var(--muted);
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
 .stat-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -56,6 +74,7 @@
 /* Six KPI cards: a calm 3 × 2 grid on desktop. */
 .stat-grid.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .stat-grid.six .stat-value { font-size: 1.48rem; }
+.stat-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .dash-grid {
   display: grid;
@@ -161,6 +180,7 @@
 }
 @media (max-width: 576px) {
   .stat-grid, .stat-grid.six { grid-template-columns: minmax(0, 1fr); }
+  .stat-grid.two { grid-template-columns: minmax(0, 1fr); }
   .summary-strip { grid-template-columns: minmax(0, 1fr); }
   .quick-actions { grid-template-columns: minmax(0, 1fr); }
 }

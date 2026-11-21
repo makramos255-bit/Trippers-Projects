@@ -27,6 +27,7 @@
     document.getElementById("setTax").value = S.taxRate;
     document.getElementById("setReceiptWidth").value = String(S.receiptWidth);
     document.getElementById("setLowStock").value = S.lowStockThreshold;
+    document.getElementById("setAttendanceStart").value = S.attendanceStartTime || "09:00";
     document.getElementById("setFooter").value = S.receiptFooter;
     document.getElementById("setNotifLow").checked = !!S.notifLowStock;
     var customLogo = S.logo && !/^data:image\/svg\+xml/i.test(S.logo);
@@ -63,6 +64,7 @@
     var symbol = document.getElementById("setCurrencySymbol").value.trim();
     var tax = parseFloat(document.getElementById("setTax").value);
     var lowStock = parseFloat(document.getElementById("setLowStock").value);
+    var attendanceStart = document.getElementById("setAttendanceStart").value;
 
     if (!name || !address || !contact) {
       window.App.toast("Shop name, address and contact number are required.", "warning");
@@ -84,6 +86,10 @@
       window.App.toast("Low-stock threshold must be zero or greater.", "warning");
       return;
     }
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(attendanceStart)) {
+      window.App.toast("Choose a valid shift start time.", "warning");
+      return;
+    }
 
     S.shopName = name;
     S.address = address;
@@ -93,6 +99,7 @@
     S.taxRate = U.r2(tax);
     S.receiptWidth = document.getElementById("setReceiptWidth").value;
     S.lowStockThreshold = lowStock;
+    S.attendanceStartTime = attendanceStart;
     S.receiptFooter = document.getElementById("setFooter").value;
     S.notifLowStock = document.getElementById("setNotifLow").checked;
     if (state.pendingLogo) S.logo = state.pendingLogo;

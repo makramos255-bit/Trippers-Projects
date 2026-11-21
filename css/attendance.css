@@ -1,0 +1,37 @@
+.attendance-stats { grid-template-columns: repeat(5,minmax(0,1fr)); margin-bottom:1rem; }
+.attendance-toolbar { display:grid; grid-template-columns:minmax(200px,1.5fr) repeat(3,minmax(130px,.7fr)); gap:.65rem; padding:1rem; }
+.attendance-toolbar .form-control,.attendance-toolbar .form-select { min-width:0; }
+.staff-clock-panel { padding:1.15rem 1.25rem; margin-bottom:1rem; }
+.staff-clock-summary { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.staff-clock-status { margin:.4rem 0; }
+.profile-card { display:grid; grid-template-columns:220px 1fr; gap:2rem; padding:1.5rem; max-width:880px; }
+.profile-avatar-wrap { display:flex; flex-direction:column; align-items:center; gap:.65rem; }
+.profile-avatar { width:128px;height:128px;font-size:2.4rem; }
+.profile-avatar img,.avatar.has-avatar-image img,.avatar img { width:100%;height:100%;object-fit:cover;border-radius:inherit; }
+.avatar.has-avatar-image { overflow:hidden; padding:0; }
+.profile-details dl { display:grid; grid-template-columns:160px 1fr; gap:.4rem 1rem; margin:0 0 1.3rem; }
+.profile-details dt { color:var(--muted);font-size:.78rem;font-weight:600; }
+.profile-details dd { color:var(--text);margin:0;font-weight:550; }
+.staff-settings-panel { max-width:760px;padding:1.3rem; }
+.staff-settings-panel .appearance-group { margin-bottom:1.1rem; }
+.settings-tabs { display:flex;gap:.5rem;margin:0 0 1rem;padding:.35rem;border:1px solid var(--border);border-radius:12px;background:var(--surface-soft);width:max-content;max-width:100%; }
+.settings-tabs button { display:flex;align-items:center;gap:.45rem;border:0;border-radius:9px;background:transparent;color:var(--muted);padding:.62rem .9rem;font-size:.84rem;font-weight:650; }
+.settings-tabs button.active { background:var(--card);color:var(--gold-light);box-shadow:var(--shadow-sm); }
+.settings-tab-panel { margin-top:.5rem; }
+.btn-icon { border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:9px;width:34px;height:34px; }
+.btn-icon:hover { border-color:var(--gold);color:var(--gold-light); }
+.text-danger { color:var(--danger,#df6e62)!important; }
+.staff-avatar-upload { position:relative;display:inline-flex;cursor:pointer; }
+.staff-avatar-upload input { position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer; }
+.dashboard-attendance-panel { margin-top:1rem; }
+.attendance-overview-stats { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem; }
+.attendance-overview-stats>div { display:flex;flex-direction:column;gap:.15rem; }
+.attendance-overview-stats strong { font-size:1.35rem;color:var(--text-strong,#f6f1e7); }
+.attendance-overview-stats span { font-size:.72rem;color:var(--muted); }
+.attendance-overview-bar { display:flex;overflow:hidden;gap:2px;height:8px;border-radius:99px;background:var(--surface-soft);margin-top:.9rem; }
+.attendance-overview-bar i:nth-child(1){background:#5fae8a}.attendance-overview-bar i:nth-child(2){background:#d4af37}.attendance-overview-bar i:nth-child(3){background:#d66c63}
+.dash-att-row { display:flex;align-items:center;gap:.6rem;padding:.35rem 0;border-top:1px solid var(--border);font-size:.8rem; }
+.dash-att-name { flex:1;font-weight:600;color:var(--text-strong,#f6f1e7); }
+@media (max-width:900px) { .attendance-stats{grid-template-columns:repeat(3,minmax(0,1fr));} .attendance-toolbar{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media (max-width:580px) { .attendance-stats{grid-template-columns:repeat(2,minmax(0,1fr));} .attendance-toolbar{grid-template-columns:1fr;} .profile-card{grid-template-columns:1fr;gap:1rem;} .profile-details dl{grid-template-columns:120px 1fr;} .staff-clock-summary{align-items:flex-start;flex-direction:column;} }
+@media print { body *{visibility:hidden!important;} #adminShell,#adminShell *{visibility:visible!important;} #adminShell .sidebar,#adminShell .topbar,#adminShell .sidebar-overlay{display:none!important;} #adminShell .main-wrap{margin:0!important;width:100%!important;} #page-attendance{display:block!important;position:absolute!important;left:0;top:0;width:100%;padding:0!important;} #page-attendance .page-actions,#page-attendance .attendance-toolbar,#page-attendance .attendance-stats,#page-attendance th:last-child,#page-attendance td:last-child{display:none!important;} #page-attendance .panel{border:0!important;box-shadow:none!important;} #page-attendance .table-wrap{overflow:visible!important;} }

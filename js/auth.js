@@ -119,6 +119,10 @@
         }
         return false;
       }
+      if (u.mustChangePassword && u.role !== "admin") {
+        if (!silent && window.App) window.App.go("#/change-password");
+        return false;
+      }
       if (roles.indexOf(u.role) === -1) {
         if (!silent && window.App) {
           window.App.toast("You don't have permission to do that.", "danger");
@@ -148,9 +152,10 @@
       return window.Utils.password(String(password || ""), u.salt) === u.passwordHash;
     },
 
-    setPassword: function (user, newPassword, reason) {
+    setPassword: function (user, newPassword, reason, mustChangePassword) {
       user.salt = window.Utils.salt();
       user.passwordHash = window.Utils.password(newPassword, user.salt);
+      user.mustChangePassword = !!mustChangePassword && user.role !== "admin";
       user.updatedAt = new Date().toISOString();
       window.Store.invalidateResetTokens(user.id);
 
@@ -170,6 +175,7 @@
     homeRoute: function () {
       var u = this.user();
       if (!u) return "#/login";
+      if (u.role !== "admin" && u.mustChangePassword) return "#/change-password";
       if (u.role === "admin") return "#/admin/dashboard";
       if (u.role === "inventory") return "#/inventory/dashboard";
       return "#/cashier/dashboard";

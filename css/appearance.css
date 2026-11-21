@@ -738,6 +738,12 @@ html[data-theme="light"] .pos-empty .bi { color: #c4b9a7; }
 /* Recovery card stays on the branded dark stage. */
 html[data-theme="light"] .recovery-card { background: rgba(34, 31, 27, .96); border-color: #3a342c; color: #fff; }
 
+/* Per-account background treatments, layered over either theme. */
+html[data-surface="espresso"][data-theme="dark"] { --black:#17110d;--bg-2:#211711;--card:#2a1d15;--card-2:#35251b;--border:#493326;--input-bg:#211811;--surface-soft:#34251c;--surface-head:#302118; }
+html[data-surface="soft"][data-theme="dark"] { --black:#191919;--bg-2:#222222;--card:#292929;--card-2:#303030;--border:#414141;--input-bg:#222;--surface-soft:#303030;--surface-head:#292929; }
+html[data-surface="espresso"][data-theme="light"] { --black:#f4ede5;--bg-2:#eee2d5;--card:#fffaf5;--card-2:#f6ece2;--border:#e2d1c0;--input-bg:#fffaf5;--surface-soft:#f4e9de;--surface-head:#f8efe6; }
+html[data-surface="soft"][data-theme="light"] { --black:#f1f2f0;--bg-2:#e8eae7;--card:#fff;--card-2:#f3f4f2;--border:#d9ddd8;--input-bg:#fff;--surface-soft:#f0f1ef;--surface-head:#f7f8f6; }
+
 /* Density */
 html[data-density="compact"] .content { padding: 1rem 1.15rem; }
 html[data-density="compact"] .panel-body { padding: .85rem .95rem; }

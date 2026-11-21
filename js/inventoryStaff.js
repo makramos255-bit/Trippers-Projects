@@ -106,6 +106,14 @@
     document.getElementById("ivKpiOutFoot").textContent =
       out ? "Needs immediate restocking" : "Every item has stock";
 
+    var welcome = document.getElementById("ivWelcome");
+    if (welcome) {
+      if (!total) welcome.textContent = "No supplies are tracked yet. Add your first item to get started.";
+      else if (low + out) welcome.textContent =
+        low + out + " " + (low + out === 1 ? "item needs" : "items need") + " restocking. Review the list below.";
+      else welcome.textContent = "All items are above their minimum level. Keep stock records up to date.";
+    }
+
     U.countUp(document.getElementById("ivStockValue"), stockValue(), function (v) { return U.money(v); });
     U.countUp(document.getElementById("ivRetailValue"), retailValue(), function (v) { return U.money(v); });
     U.countUp(document.getElementById("ivUnitsOnHand"), low + out, function (v) { return U.num(v, 0); });
@@ -130,7 +138,7 @@
     if (!low.length) {
       box.innerHTML = '<div class="empty-state" style="padding:1.4rem 1rem">' +
         '<i class="bi bi-check2-circle" style="color:#5fae8a"></i>' +
-        "<p>Every item is above its minimum stock level.</p></div>";
+        "<p>Great—nothing needs restocking right now. All items are above their minimum level.</p></div>";
       return;
     }
 
@@ -144,7 +152,7 @@
         '<div class="a2">Remaining ' + U.qty(i.qty) + " " + U.esc(i.unit) +
         " · minimum " + U.qty(i.minStock) + " " + U.esc(i.unit) + "</div>" +
         "</div>" +
-        '<button class="btn btn-ghost btn-sm" data-alert-view="' + i.id + '">View</button>' +
+        '<button class="btn btn-ghost btn-sm" data-alert-view="' + i.id + '">Review item</button>' +
         "</div>";
     }).join("");
   }
@@ -157,7 +165,7 @@
     }).slice(0, 5);
 
     if (!rows.length) {
-      box.innerHTML = '<div class="empty-state" style="padding:1.2rem"><i class="bi bi-box-seam"></i><p>No inventory items yet.</p></div>';
+      box.innerHTML = '<div class="empty-state" style="padding:1.2rem"><i class="bi bi-box-seam"></i><p>No items yet. Use Add item above to track your first supply.</p></div>';
       return;
     }
 
@@ -190,7 +198,7 @@
     var moves = Store.db.stockMoves.slice(0, 8);
     if (!moves.length) {
       box.innerHTML = '<div class="empty-state" style="padding:1.2rem"><i class="bi bi-arrow-left-right"></i>' +
-        "<p>No stock movements recorded yet.</p></div>";
+        "<p>No stock updates yet. Stock received or removed will appear here.</p></div>";
       return;
     }
     box.innerHTML = moves.map(movementRow).join("");

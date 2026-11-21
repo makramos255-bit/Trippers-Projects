@@ -37,13 +37,12 @@
         if (window.CashierPage && window.CashierPage.refreshIfVisible) window.CashierPage.refreshIfVisible();
       });
 
+      window.addEventListener("hashchange", function () { App.render(); });
       if (!window.location.hash) {
-        var target = window.Auth.session() ? window.Auth.homeRoute() : "#/login";
-        window.location.replace(window.location.pathname + window.location.search + target);
-        return;
+        window.location.hash = window.Auth.session() ? window.Auth.homeRoute() : "#/login";
       }
       this.render();
-      window.addEventListener("hashchange", function () { App.render(); });
+      if (window.BrandIntro && window.BrandIntro.playIfNeeded) window.BrandIntro.playIfNeeded();
     },
 
     /* ---------------------------------------------------------- routing */
@@ -83,8 +82,9 @@
       }
 
       // Leaving Settings without saving should drop the live preview.
-      if (this.current === "#/admin/settings" && route !== "#/admin/settings" && window.Appearance) {
+      if (this.current && this.current.indexOf("/settings") >= 0 && route !== this.current && window.Appearance) {
         window.Appearance.revertPreview();
+        if (window.AttendancePage && window.AttendancePage.cancelSettings) window.AttendancePage.cancelSettings();
       }
 
       var def = this.routes[route];
@@ -95,6 +95,7 @@
       }
 
       var user = window.Auth.user();
+      if (window.Appearance && window.Appearance.loadForUser) window.Appearance.loadForUser(user);
 
       if (route === "#/login") {
         if (user) { this.go(window.Auth.homeRoute()); return; }
@@ -108,6 +109,21 @@
         this.showLogin();
         this.toast("Please sign in to continue.", "warning");
         window.location.hash = "#/login";
+        return;
+      }
+
+      if (user.mustChangePassword && user.role !== "admin" && route !== "#/change-password") {
+        this.go("#/change-password");
+        return;
+      }
+
+      if (route === "#/change-password") {
+        if (!user.mustChangePassword || user.role === "admin") {
+          this.go(window.Auth.homeRoute());
+          return;
+        }
+        this.current = route;
+        this.showForcePassword(user);
         return;
       }
 
@@ -134,13 +150,15 @@
           else if (def.page === "inv-stock-in") inv.renderStockIn();
           else if (def.page === "inv-stock-out") inv.renderStockOut();
           else if (def.page === "inv-history") inv.renderHistory();
+          else if (def.page === "attendance" || def.page === "profile" || def.page === "settings") window.AttendancePage.render();
         }, def.title, user);
       } else if (def.view === "cashier") {
         this.showCashier(user);
         this.setCashierActive(def.page);
         this.setCashierTopbar(def.title, user);
         this.safeRender(function () {
-          if (window.CashierPage) window.CashierPage.render();
+          if (def.page === "attendance" || def.page === "profile" || def.page === "settings") window.AttendancePage.render();
+          else if (window.CashierPage) window.CashierPage.render();
         }, def.title, user);
       } else {
         this.showAdmin(user);
@@ -157,10 +175,13 @@
             transactions: window.TransactionsPage,
             reports: window.ReportsPage,
             settings: window.SettingsPage,
-            activity: window.ActivityPage
+            activity: window.ActivityPage,
+            attendance: window.AttendancePage,
+            profile: window.AttendancePage
           };
           var mod = map[def.page];
           if (mod && mod.render) mod.render();
+          if (def.page === "settings" && window.AttendancePage) window.AttendancePage.renderSettings();
         }, def.title, user);
       }
 
@@ -191,6 +212,7 @@
       this.closeModals();
       document.getElementById("loginView").classList.remove("hidden");
       document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("adminShell").classList.add("hidden");
       document.getElementById("inventoryShell").classList.add("hidden");
       document.getElementById("cashierShell").classList.add("hidden");
@@ -206,6 +228,7 @@
       this.closeModals();
       document.getElementById("loginView").classList.add("hidden");
       document.getElementById("forgotView").classList.remove("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("adminShell").classList.add("hidden");
       document.getElementById("inventoryShell").classList.add("hidden");
       document.getElementById("cashierShell").classList.add("hidden");
@@ -215,11 +238,64 @@
       this.openForgot();
     },
 
+    showForcePassword: function (user) {
+      this.closeModals();
+      document.getElementById("loginView").classList.add("hidden");
+      document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.remove("hidden");
+      document.getElementById("adminShell").classList.add("hidden");
+      document.getElementById("inventoryShell").classList.add("hidden");
+      document.getElementById("cashierShell").classList.add("hidden");
+      document.getElementById("posShell").classList.add("hidden");
+      document.body.classList.remove("pos-mode");
+      document.title = "Choose a password — TRIPPERS COFFEE";
+      document.getElementById("forcePasswordRole").textContent = window.Auth.roleLabel(user.role);
+      document.getElementById("forcePasswordError").classList.add("hidden");
+      document.getElementById("forcePasswordNew").value = "";
+      document.getElementById("forcePasswordConfirm").value = "";
+
+      var form = document.getElementById("forcePasswordForm");
+      if (!form.dataset.bound) {
+        form.dataset.bound = "1";
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var currentUser = window.Auth.user();
+          var error = document.getElementById("forcePasswordError");
+          var next = document.getElementById("forcePasswordNew").value;
+          var confirm = document.getElementById("forcePasswordConfirm").value;
+          error.classList.add("hidden");
+
+          function fail(message) {
+            error.textContent = message;
+            error.classList.remove("hidden");
+          }
+
+          if (!currentUser || !currentUser.mustChangePassword || currentUser.role === "admin") {
+            window.location.hash = window.Auth.homeRoute();
+            return;
+          }
+          if (next.length < 6) return fail("Choose a password with at least 6 characters.");
+          if (next !== confirm) return fail("The passwords do not match. Please try again.");
+          if (window.Auth.verifyPassword(next)) return fail("Choose a password different from your temporary password.");
+
+          window.Auth.setPassword(currentUser, next, "Temporary password changed at first sign-in");
+          App.toast("Password saved. You can now continue to your dashboard.", "success");
+          App.go(window.Auth.homeRoute());
+        });
+
+        document.getElementById("forcePasswordLogout").addEventListener("click", function () {
+          window.Auth.logout();
+        });
+      }
+      setTimeout(function () { document.getElementById("forcePasswordNew").focus(); }, 60);
+    },
+
     showAdmin: function (user) {
       if (user.role !== "admin") { this.go(window.Auth.homeRoute()); return; }
       this.closeModals();
       document.getElementById("loginView").classList.add("hidden");
       document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("inventoryShell").classList.add("hidden");
       document.getElementById("cashierShell").classList.add("hidden");
       document.getElementById("posShell").classList.add("hidden");
@@ -233,6 +309,7 @@
       this.closeModals();
       document.getElementById("loginView").classList.add("hidden");
       document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("adminShell").classList.add("hidden");
       document.getElementById("cashierShell").classList.add("hidden");
       document.getElementById("posShell").classList.add("hidden");
@@ -246,6 +323,7 @@
       this.closeModals();
       document.getElementById("loginView").classList.add("hidden");
       document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("adminShell").classList.add("hidden");
       document.getElementById("inventoryShell").classList.add("hidden");
       document.getElementById("posShell").classList.add("hidden");
@@ -258,6 +336,7 @@
       this.closeModals();
       document.getElementById("loginView").classList.add("hidden");
       document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("adminShell").classList.add("hidden");
       document.getElementById("inventoryShell").classList.add("hidden");
       document.getElementById("cashierShell").classList.add("hidden");
@@ -284,7 +363,7 @@
       document.querySelectorAll("#adminShell .page").forEach(function (sec) {
         sec.classList.add("hidden");
       });
-      var el = document.getElementById("page-" + page);
+      var el = document.querySelector("#adminShell #page-" + page);
       if (el) {
         el.classList.remove("hidden");
         el.classList.add("fade-up");
@@ -301,7 +380,7 @@
       document.querySelectorAll("#inventoryShell .page").forEach(function (sec) {
         sec.classList.add("hidden");
       });
-      var el = document.getElementById("page-" + page);
+      var el = document.querySelector("#inventoryShell #page-" + page);
       if (el) {
         el.classList.remove("hidden");
         el.classList.add("fade-up");
@@ -318,7 +397,7 @@
       document.querySelectorAll("#cashierShell .page").forEach(function (sec) {
         sec.classList.add("hidden");
       });
-      var el = document.getElementById("page-" + page);
+      var el = document.querySelector("#cashierShell #page-" + page);
       if (el) {
         el.classList.remove("hidden");
         el.classList.add("fade-up");
@@ -376,7 +455,10 @@
         var initials = window.Utils.initials(user.fullName);
         ["sideAvatar", "topAvatar", "invAvatar", "invTopAvatar", "cashierAvatar", "cashierTopAvatar"].forEach(function (id) {
           var el = document.getElementById(id);
-          if (el) el.textContent = initials;
+          if (el) {
+            el.innerHTML = user.avatarData ? '<img src="' + window.Utils.attr(user.avatarData) + '" alt="">' : window.Utils.esc(initials);
+            el.classList.toggle("has-avatar-image", !!user.avatarData);
+          }
         });
         var nameIds = ["sideUserName", "topUserName", "invUserName", "invTopUserName", "cashierSideName", "cashierTopUserName"];
         nameIds.forEach(function (id) {
@@ -457,7 +539,11 @@
             return;
           }
           document.getElementById("loginPassword").value = "";
-          App.toast("Welcome back, " + result.user.fullName.split(" ")[0] + "!", "success");
+          if (result.user.mustChangePassword) {
+            App.toast("Welcome, " + result.user.fullName.split(" ")[0] + ". Set a new password to continue.", "info");
+          } else {
+            App.toast("Welcome back, " + result.user.fullName.split(" ")[0] + "!", "success");
+          }
           App.go(window.Auth.homeRoute());
         }, 220);
       });
@@ -664,6 +750,16 @@
       });
       bind("forgotConfirm", "keydown", function (e) {
         if (e.key === "Enter") { e.preventDefault(); App.forgotReset(); }
+      });
+      document.querySelectorAll("[data-password-toggle]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var input = document.getElementById(button.getAttribute("data-password-toggle"));
+          if (!input) return;
+          var reveal = input.type === "password";
+          input.type = reveal ? "text" : "password";
+          button.innerHTML = '<i class="bi ' + (reveal ? "bi-eye-slash" : "bi-eye") + '"></i>';
+          button.setAttribute("aria-label", reveal ? "Hide password" : "Show password");
+        });
       });
 
       document.getElementById("accountForm").addEventListener("submit", function (e) {
@@ -882,8 +978,10 @@
     },
 
     afterLogout: function () {
+      document.body.classList.add("logout-transition");
       document.getElementById("loginView").classList.remove("hidden");
       document.getElementById("forgotView").classList.add("hidden");
+      document.getElementById("forcePasswordView").classList.add("hidden");
       document.getElementById("adminShell").classList.add("hidden");
       document.getElementById("inventoryShell").classList.add("hidden");
       document.getElementById("cashierShell").classList.add("hidden");
@@ -906,6 +1004,7 @@
       });
       this.current = "#/login";
       window.location.hash = "#/login";
+      window.setTimeout(function () { document.body.classList.remove("logout-transition"); }, 360);
       this.toast("Signed out. See you soon!", "success");
     },
 
@@ -1087,25 +1186,34 @@
   App.register({
     "#/login": { view: "login" },
     "#/forgot": { view: "login" },
+    "#/change-password": { view: "force-password", roles: ["inventory", "cashier"] },
 
     "#/admin/dashboard": { view: "admin", page: "dashboard", title: "Dashboard", roles: ["admin"] },
     "#/admin/inventory": { view: "admin", page: "inventory", title: "Inventory", roles: ["admin"] },
     "#/admin/products": { view: "admin", page: "products", title: "Products", roles: ["admin"] },
     "#/admin/categories": { view: "admin", page: "categories", title: "Categories", roles: ["admin"] },
     "#/admin/staff": { view: "admin", page: "staff", title: "Staff Accounts", roles: ["admin"] },
+    "#/admin/attendance": { view: "admin", page: "attendance", title: "Staff Attendance", roles: ["admin"] },
+    "#/admin/profile": { view: "admin", page: "settings", title: "Settings", roles: ["admin"] },
     "#/admin/sales": { view: "admin", page: "sales", title: "Sales", roles: ["admin"] },
     "#/admin/transactions": { view: "admin", page: "transactions", title: "Transactions", roles: ["admin"] },
     "#/admin/reports": { view: "admin", page: "reports", title: "Reports", roles: ["admin"] },
     "#/admin/settings": { view: "admin", page: "settings", title: "Settings", roles: ["admin"] },
     "#/admin/activity": { view: "admin", page: "activity", title: "Activity Logs", roles: ["admin"] },
 
-    "#/inventory/dashboard": { view: "inventory", page: "inv-dashboard", title: "Inventory Dashboard", roles: ["inventory"] },
+    "#/inventory/dashboard": { view: "inventory", page: "inv-dashboard", title: "Inventory", roles: ["inventory"] },
     "#/inventory/list": { view: "inventory", page: "inv-list", title: "Inventory List", roles: ["inventory"] },
     "#/inventory/stock-in": { view: "inventory", page: "inv-stock-in", title: "Stock In", roles: ["inventory"] },
     "#/inventory/stock-out": { view: "inventory", page: "inv-stock-out", title: "Stock Out", roles: ["inventory"] },
     "#/inventory/history": { view: "inventory", page: "inv-history", title: "Inventory History", roles: ["inventory"] },
+    "#/inventory/attendance": { view: "inventory", page: "attendance", title: "My Attendance", roles: ["inventory"] },
+    "#/inventory/profile": { view: "inventory", page: "settings", title: "Settings", roles: ["inventory"] },
+    "#/inventory/settings": { view: "inventory", page: "settings", title: "Appearance Settings", roles: ["inventory"] },
 
-    "#/cashier/dashboard": { view: "cashier", page: "cashier-dashboard", title: "Cashier dashboard", roles: ["cashier"] },
+    "#/cashier/dashboard": { view: "cashier", page: "cashier-dashboard", title: "Your shift", roles: ["cashier"] },
+    "#/cashier/attendance": { view: "cashier", page: "attendance", title: "My Attendance", roles: ["cashier"] },
+    "#/cashier/profile": { view: "cashier", page: "settings", title: "Settings", roles: ["cashier"] },
+    "#/cashier/settings": { view: "cashier", page: "settings", title: "Appearance Settings", roles: ["cashier"] },
 
     "#/pos": { view: "pos", title: "POS", roles: ["admin", "cashier"] }
   });

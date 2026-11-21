@@ -73,7 +73,7 @@
         var active = u.status === "active";
         return "<tr>" +
           '<td><div class="d-flex align-items-center gap-2">' +
-          '<div class="avatar">' + U.esc(U.initials(u.fullName)) + "</div>" +
+          '<label class="staff-avatar-upload" title="Change staff photo">' + (u.avatarData ? '<img class="avatar" src="' + U.attr(u.avatarData) + '" alt="">' : '<span class="avatar">' + U.esc(U.initials(u.fullName)) + "</span>") + '<input type="file" accept="image/*" data-avatar-upload="' + U.attr(u.id) + '" aria-label="Change profile photo"></label>' +
           '<div><div class="cell-title">' + U.esc(u.fullName) + "</div>" +
           '<div class="cell-sub mono">' + U.esc(u.employeeId) + "</div></div></div></td>" +
           '<td><span class="mono">@' + U.esc(u.username) + "</span>" +
@@ -131,8 +131,8 @@
     document.getElementById("stfConfirm").value = "";
     document.getElementById("stfActive").checked = isEdit ? user.status === "active" : true;
     document.getElementById("stfPasswordHint").textContent = isEdit
-      ? "Leave both password fields blank to keep the current password."
-      : "Minimum 6 characters.";
+      ? "Leave both fields blank to keep the current password. A new password entered here is temporary."
+      : "Set a temporary password and share it privately. Staff must change it before entering their dashboard.";
     window.App.modal("staffModal").show();
   }
 
@@ -201,7 +201,7 @@
       user.role = role;
       user.status = active ? "active" : "inactive";
       user.updatedAt = new Date().toISOString();
-      if (pw) window.Auth.setPassword(user, pw, "Password changed by admin");
+      if (pw) window.Auth.setPassword(user, pw, "Temporary password set by administrator", true);
       Store.logActivity("Staff account updated",
         name + " (" + empId + ") updated" + (oldRole !== role ? " · role changed to " + roleLabel(role) : "") + ".");
       Store.commit();
@@ -216,6 +216,7 @@
         email: email || (username + "@trippers.coffee"),
         salt: salt,
         passwordHash: U.password(pw, salt),
+        mustChangePassword: true,
         employeeId: empId,
         contact: contact,
         status: active ? "active" : "inactive",
@@ -319,7 +320,7 @@
     if (pw.length < 6) return fail("Password must be at least 6 characters.");
     if (pw !== confirm) return fail("Passwords do not match.");
 
-    window.Auth.setPassword(user, pw, "Password reset by administrator");
+    window.Auth.setPassword(user, pw, "Temporary password reset by administrator", true);
     Store.notify("user", "Password reset", user.fullName + "'s password was reset by the administrator.");
     Store.commit();
     window.App.modal("resetPasswordModal").hide();
@@ -436,6 +437,15 @@
         } else if (reset) openReset(reset.getAttribute("data-reset"));
         else if (toggle) toggleStatus(toggle.getAttribute("data-toggle"));
         else if (del) remove(del.getAttribute("data-del"));
+      });
+      document.getElementById("staffBody").addEventListener("change", function (e) {
+        var input = e.target.closest("[data-avatar-upload]"), file = input && input.files && input.files[0];
+        if (!file || !window.Auth.requireAdmin()) return;
+        var user = Store.user(input.getAttribute("data-avatar-upload"));
+        U.readImage(file, 360, 0.78).then(function (url) {
+          if (!user) return;
+          user.avatarData = url; Store.commit(); render(); window.App.refreshShell(); window.App.toast("Staff photo updated.", "success");
+        }).catch(function (err) { window.App.toast(err.message, "danger"); });
       });
     },
 

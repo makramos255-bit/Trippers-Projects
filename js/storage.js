@@ -11,7 +11,7 @@
   var IMG_KEY = "trippers.images";
   var SESSION_KEY = "trippers.session";
   var CART_KEY = "trippers.cart";
-  var VERSION = 2;
+  var VERSION = 4;
 
   /* ---------------------------------------------------------------- Utils */
   var Utils = {
@@ -337,9 +337,12 @@
         activities: raw.activities || [],
         loginHistory: raw.loginHistory || [],
         resetTokens: raw.resetTokens || [],
+        attendance: Array.isArray(raw.attendance) ? raw.attendance : [],
+        expenses: Array.isArray(raw.expenses) ? raw.expenses : this.seedExpenses(),
         settings: Object.assign({}, defaults.settings, raw.settings || {})
       };
       db.meta.counters = Object.assign({}, defaults.meta.counters, (raw.meta && raw.meta.counters) || {});
+      if (!db.meta.counters.expense) db.meta.counters.expense = db.expenses.length;
 
       // Migration: earlier builds only had admin/cashier accounts and no email.
       var validRoles = { admin: 1, inventory: 1, cashier: 1 };
@@ -396,7 +399,7 @@
       return {
         meta: {
           createdAt: new Date().toISOString(),
-          counters: { category: 0, inventory: 0, product: 0, user: 0, sale: 0, notification: 0, stockMove: 0, activity: 0 }
+          counters: { category: 0, inventory: 0, product: 0, user: 0, sale: 0, notification: 0, stockMove: 0, activity: 0, expense: 0, attendance: 0 }
         },
         settings: {
           shopName: "TRIPPERS COFFEE",
@@ -408,6 +411,7 @@
           receiptFooter: "Thank you for choosing TRIPPERS COFFEE.\nFollow @trippers.coffee for new blends.",
           receiptWidth: "80",
           lowStockThreshold: 10,
+          attendanceStartTime: "09:00",
           notifLowStock: true,
           adminRecoveryCode: "TRIPPERS-2026",
           logo: Utils.logoImage()
@@ -827,6 +831,120 @@
 
     money: function (n) { return Utils.money(n); },
 
+    /* -------- costing -------- */
+    /** Cost of one serving from the product recipe and current inventory cost. */
+    productCost: function (productOrId) {
+      var p = typeof productOrId === "string" ? this.product(productOrId) : productOrId;
+      if (!p || !Array.isArray(p.recipe) || !p.recipe.length) return 0;
+      var self = this;
+      return Utils.r2(p.recipe.reduce(function (sum, line) {
+        var item = self.inventoryItem(line.inventoryId);
+        if (!item) return sum;
+        return sum + (Number(item.costPrice) || 0) * (Number(line.qty) || 0);
+      }, 0));
+    },
+
+    /**
+     * COGS for a sale. New sales carry an exact `cost`; older seeded sales are
+     * valued with today's recipe cost so historical reports stay meaningful.
+     */
+    saleCost: function (sale) {
+      if (!sale) return 0;
+      if (typeof sale.cost === "number" && isFinite(sale.cost)) return Utils.r2(sale.cost);
+      var self = this;
+      var total = (sale.items || []).reduce(function (sum, line) {
+        var qty = Number(line.qty) || 0;
+        if (typeof line.lineCost === "number" && isFinite(line.lineCost)) return sum + line.lineCost;
+        if (typeof line.unitCost === "number" && isFinite(line.unitCost)) return sum + line.unitCost * qty;
+        return sum + self.productCost(line.productId) * qty;
+      }, 0);
+      return Utils.r2(total);
+    },
+
+    /* -------- expenses -------- */
+    /** Deterministic operating-expense history for the demo database. */
+    seedExpenses: function () {
+      var now = new Date();
+      var defs = [
+        ["Rent", "Monthly store rent", 45000, "Bank Transfer", 3],
+        ["Utilities", "Electricity, water and internet", 8600, "Bank Transfer", 8],
+        ["Payroll", "Barista and cashier payroll", 56000, "Bank Transfer", 15],
+        ["Marketing", "Social media boost and store posters", 2600, "GCash", 20],
+        ["Maintenance", "Espresso machine servicing and repairs", 1850, "Cash", 24],
+        ["Licenses", "Business permits and sanitation fees", 1200, "Bank Transfer", 27],
+        ["Other", "Cleaning supplies and minor store needs", 1450, "Cash", 28]
+      ];
+      var expenses = [];
+      var seq = 0;
+      for (var m = 5; m >= 0; m--) {
+        var anchor = new Date(now.getFullYear(), now.getMonth() - m, 1);
+        defs.forEach(function (d, i) {
+          if (d[0] === "Maintenance" && m % 2 === 1) return;
+          if (d[0] === "Licenses" && m % 3 !== 0) return;
+          var date = new Date(anchor.getFullYear(), anchor.getMonth(), d[4]);
+          if (date > now) return;
+          var jitter = 1 + ((((m + 1) * 7 + i * 13) % 9) - 4) / 100;
+          seq++;
+          expenses.push({
+            id: "EXP-" + Utils.pad(seq, 5),
+            date: Utils.ymd(date),
+            category: d[0],
+            description: d[1],
+            amount: Utils.r2(d[2] * jitter),
+            method: d[3],
+            notes: "Recurring operating expense",
+            createdBy: "Marco Villanueva",
+            createdAt: new Date(date.getTime() + 9 * 3600000).toISOString()
+          });
+        });
+      }
+      return expenses.sort(function (a, b) { return a.date.localeCompare(b.date); });
+    },
+
+    expensesBetween: function (fromYmd, toYmd) {
+      var from = fromYmd || "0000-01-01";
+      var to = toYmd || "9999-12-31";
+      return this.db.expenses.filter(function (e) {
+        return e && e.date >= from && e.date <= to;
+      }).sort(function (a, b) { return a.date.localeCompare(b.date); });
+    },
+
+    addExpense: function (data) {
+      data = data || {};
+      var amount = Number(data.amount);
+      if (!data.date) return { ok: false, error: "Choose the expense date." };
+      if (!data.category) return { ok: false, error: "Choose an expense category." };
+      if (!String(data.description || "").trim()) return { ok: false, error: "Enter an expense description." };
+      if (!isFinite(amount) || amount <= 0) return { ok: false, error: "Enter an amount greater than zero." };
+
+      var expense = {
+        id: this.nextId("EXP", "expense", 5),
+        date: data.date,
+        category: data.category,
+        description: String(data.description).trim().slice(0, 120),
+        amount: Utils.r2(amount),
+        method: data.method || "Cash",
+        notes: String(data.notes || "").trim().slice(0, 240),
+        createdBy: (window.Auth && window.Auth.user()) ? window.Auth.user().fullName : "System",
+        createdAt: new Date().toISOString()
+      };
+      this.db.expenses.push(expense);
+      this.logActivity("Expense recorded",
+        expense.category + " · " + expense.description + " · " + Utils.money(expense.amount) + " (" + expense.date + ").");
+      this.commit();
+      return { ok: true, expense: expense };
+    },
+
+    deleteExpense: function (id) {
+      var expense = this.db.expenses.filter(function (e) { return e.id === id; })[0];
+      if (!expense) return { ok: false, error: "That expense no longer exists." };
+      this.db.expenses = this.db.expenses.filter(function (e) { return e.id !== id; });
+      this.logActivity("Expense deleted",
+        expense.category + " · " + expense.description + " · " + Utils.money(expense.amount) + ".");
+      this.commit();
+      return { ok: true, expense: expense };
+    },
+
     /* -------- totals -------- */
     /** Single source of truth for order maths (POS, seed, reports). */
     computeTotals: function (lines, discountType, discountValue) {
@@ -923,6 +1041,7 @@
       db.sales = [];
       db.loginHistory = [];
       db.resetTokens = [];
+      db.attendance = [];
       // computeTotals() reads settings through this.db, so publish the draft early.
       this.db = db;
 
@@ -1142,7 +1261,9 @@
               categoryName: cat ? cat.name : "Uncategorised",
               price: p.price,
               qty: qty,
-              lineTotal: Utils.r2(p.price * qty)
+              lineTotal: Utils.r2(p.price * qty),
+              unitCost: self.productCost(p),
+              lineCost: Utils.r2(self.productCost(p) * qty)
             });
           }
           if (!lines.length) continue;

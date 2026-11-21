@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111111">
-<title>TRIPPERS COFFEE — Management System</title>
-<meta name="description" content="TRIPPERS COFFEE premium coffee shop management system — POS, inventory, products, sales and reports.">
+<title>TRIPPERS COFFEE Ã¢â‚¬â€ Management System</title>
+<meta name="description" content="TRIPPERS COFFEE premium coffee shop management system Ã¢â‚¬â€ POS, inventory, products, sales and reports.">
 
 <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=login-background-5">
 <link rel="stylesheet" href="css/dashboard.css">
 <link rel="stylesheet" href="css/inventory.css">
 <link rel="stylesheet" href="css/products.css">
@@ -17,34 +17,38 @@
 <link rel="stylesheet" href="css/reports.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/appearance.css">
+<link rel="stylesheet" href="css/attendance.css">
+<link rel="stylesheet" href="css/intro.css?v=intro-cinematic-7">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
+<div id="brandIntro" class="brand-intro hidden" role="status" aria-live="polite" aria-label="TRIPPERS COFFEE" aria-hidden="true">
+  <div class="intro-warm-light" aria-hidden="true"></div>
+  <div class="intro-particles" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div class="intro-brand-lockup">
+    <div class="intro-logo-stage"><img class="intro-logo" src="assets/images/logoo-transparent.png" alt=""></div>
+    <div class="intro-rule" aria-hidden="true"></div>
+    <div class="intro-wordmark" aria-label="TRIPPERS COFFEE">TRIPPERS COFFEE</div>
+    <p class="intro-tagline">Good Coffee. Good Trips. Good Memories.</p>
+  </div>
+</div>
+
 <!-- ============================================================ LOGIN -->
 <div id="loginView" class="auth-view hidden">
   <div class="auth-bg" aria-hidden="true">
-    <span class="ab-orb g1"></span>
-    <span class="ab-orb g2"></span>
-    <span class="ab-orb g3"></span>
-    <span class="ab-beam b1"></span>
-    <span class="ab-beam b2"></span>
-    <span class="ab-dust">
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-    </span>
+    <img class="login-photo login-photo-base" src="assets/images/backg..jpg" alt="">
+    <img class="login-photo login-photo-overlay" src="assets/images/backg.jpg" alt="">
     <span class="ab-vignette"></span>
   </div>
 
-  <h1 class="visually-hidden">TRIPPERS COFFEE — Sign in</h1>
+  <h1 class="visually-hidden">TRIPPERS COFFEE Ã¢â‚¬â€ Sign in</h1>
 
   <div class="auth-card fade-up">
     <div class="auth-emblem">
-      <span class="emblem-halo" aria-hidden="true"></span>
-      <span class="emblem-orbit" aria-hidden="true"></span>
-      <img class="emblem-logo" src="assets/images/logo.svg" alt="TRIPPERS COFFEE">
+      <img class="emblem-logo" src="assets/images/logoo-transparent.png" alt="TRIPPERS COFFEE">
     </div>
-    <p class="auth-sub">Coffee · Management System</p>
+    <p class="auth-sub">Coffee Ã‚Â· Management System</p>
 
     <form id="loginForm" novalidate>
       <div id="loginError" class="alert alert-premium danger hidden py-2 px-3 mb-3" role="alert"></div>
@@ -81,7 +85,7 @@
     </form>
 
     <div class="auth-demo">
-      <div class="eyebrow mb-2">Demo accounts — click to fill</div>
+      <div class="eyebrow mb-2">Demo accounts Ã¢â‚¬â€ click to fill</div>
       <div class="d-grid gap-2">
         <button type="button" class="demo-chip" data-demo="admin">
           <span><i class="bi bi-shield-lock me-1"></i><strong>Administrator</strong></span>
@@ -97,7 +101,7 @@
         </button>
       </div>
       <p class="text-muted-soft text-center mt-3 mb-0" style="font-size:.68rem">
-        Local demonstration only — data is stored in this browser.
+        Local demonstration only Ã¢â‚¬â€ data is stored in this browser.
       </p>
     </div>
   </div>
@@ -114,7 +118,7 @@
     <span class="ab-vignette"></span>
   </div>
 
-  <h1 class="visually-hidden">TRIPPERS COFFEE — Account recovery</h1>
+  <h1 class="visually-hidden">TRIPPERS COFFEE Ã¢â‚¬â€ Account recovery</h1>
 
   <div class="auth-card recovery-card fade-up">
     <button type="button" class="recovery-back" id="forgotBack">
@@ -194,8 +198,49 @@
     <div id="forgotSuccess" class="hidden text-center py-3">
       <div class="stat-icon green mx-auto mb-3" style="width:54px;height:54px;font-size:1.5rem"><i class="bi bi-check2-circle"></i></div>
       <h6 class="mb-1" style="color:#fff">Password reset successful</h6>
-      <p class="cell-sub mb-0" style="color:#a9a194">Taking you back to sign in…</p>
+      <p class="cell-sub mb-0" style="color:#a9a194">Taking you back to sign inÃ¢â‚¬Â¦</p>
       <button type="button" class="btn btn-outline-gold btn-sm mt-3" id="forgotDoneBtn">Go to sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================== FIRST LOGIN PASSWORD -->
+<div id="forcePasswordView" class="auth-view hidden">
+  <div class="auth-bg" aria-hidden="true">
+    <span class="ab-orb g1"></span>
+    <span class="ab-orb g2"></span>
+    <span class="ab-orb g3"></span>
+    <span class="ab-vignette"></span>
+  </div>
+  <h1 class="visually-hidden">TRIPPERS COFFEE Ã¢â‚¬â€ Set your password</h1>
+  <div class="auth-card recovery-card fade-up">
+    <div class="d-flex align-items-center gap-2 mb-3">
+      <div class="brand-mark" style="width:38px;height:38px;border-radius:10px">
+        <img src="assets/images/logo-mark.svg" alt="" style="width:28px">
+      </div>
+      <div>
+        <div style="font-family:var(--font-display);letter-spacing:.12em;color:#fff;font-size:.92rem">TRIPPERS</div>
+        <div style="font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light)" id="forcePasswordRole">Staff account</div>
+      </div>
+    </div>
+    <h2 class="h5 mb-1" style="color:#fff">Choose your password</h2>
+    <p class="cell-sub mb-3" style="color:#a9a194">Your administrator gave you a temporary password. Set a personal password before you continue to your dashboard.</p>
+    <div id="forcePasswordError" class="alert alert-premium danger py-2 px-3 mb-3 hidden" role="alert"></div>
+    <form id="forcePasswordForm" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="forcePasswordNew">New password</label>
+        <input type="password" class="form-control" id="forcePasswordNew" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="forcePasswordConfirm">Confirm new password</label>
+        <input type="password" class="form-control" id="forcePasswordConfirm" autocomplete="new-password" required>
+      </div>
+      <button type="submit" class="btn btn-gold btn-lg btn-block" id="forcePasswordSave">
+        <i class="bi bi-shield-check"></i> Save password and continue
+      </button>
+    </form>
+    <div class="text-center mt-3">
+      <button type="button" class="auth-link" id="forcePasswordLogout">Sign out</button>
     </div>
   </div>
 </div>
@@ -227,6 +272,7 @@
       <a class="side-link" href="#/admin/products" data-route="#/admin/products"><i class="bi bi-cup-hot"></i> <span class="nav-label">Products</span></a>
       <a class="side-link" href="#/admin/categories" data-route="#/admin/categories"><i class="bi bi-tags"></i> <span class="nav-label">Categories</span></a>
       <a class="side-link" href="#/admin/staff" data-route="#/admin/staff"><i class="bi bi-people"></i> <span class="nav-label">Staff</span></a>
+      <a class="side-link" href="#/admin/attendance" data-route="#/admin/attendance"><i class="bi bi-calendar2-check"></i> <span class="nav-label">Attendance</span></a>
 
       <div class="side-section">Transactions</div>
       <a class="side-link" href="#/admin/sales" data-route="#/admin/sales"><i class="bi bi-cash-stack"></i> <span class="nav-label">Sales</span></a>
@@ -266,14 +312,14 @@
       <div class="global-search" id="globalSearchWrap">
         <i class="bi bi-search"></i>
         <input type="search" class="form-control" id="globalSearch" data-global-search
-          placeholder="Search products, staff, sales, inventory…" autocomplete="off" aria-label="Search everything">
+          placeholder="Search products, staff, sales, inventoryÃ¢â‚¬Â¦" autocomplete="off" aria-label="Search everything">
         <span class="gs-kbd">Ctrl K</span>
         <div class="gs-results hidden" id="globalSearchResults" role="listbox" aria-label="Search results"></div>
       </div>
 
       <div class="top-clock d-none d-lg-block">
         <strong id="clockTime">--:--:--</strong>
-        <span class="tc-date" id="clockDate">—</span>
+        <span class="tc-date" id="clockDate">Ã¢â‚¬â€</span>
       </div>
 
       <button class="top-icon" data-theme-toggle title="Switch theme" aria-label="Switch theme">
@@ -334,32 +380,43 @@
           </div>
         </div>
 
-        <div class="stat-grid eight">
+        <div class="dash-section-heading">
+          <h2>Today's performance</h2>
+          <p>Completed sales and orders, compared with yesterday.</p>
+        </div>
+        <div class="stat-grid two">
           <div class="stat-card">
             <div class="stat-top">
               <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
-              <span class="stat-delta delta-flat" id="kpiTodaySalesDelta">—</span>
+              <span class="stat-delta delta-flat" id="kpiTodaySalesDelta">Ã¢â‚¬â€</span>
             </div>
-            <div class="stat-value mono" id="kpiTodaySales">₱0.00</div>
-            <div class="stat-label">Total sales today</div>
+            <div class="stat-value mono" id="kpiTodaySales">Ã¢â€šÂ±0.00</div>
+            <div class="stat-label">Completed sales today</div>
             <div class="stat-foot"><i class="bi bi-calendar-day"></i><span id="kpiTodaySalesFoot">No sales yet today</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-top">
               <div class="stat-icon green"><i class="bi bi-bag-check"></i></div>
-              <span class="stat-delta delta-flat" id="kpiTodayOrdersDelta">—</span>
+              <span class="stat-delta delta-flat" id="kpiTodayOrdersDelta">Ã¢â‚¬â€</span>
             </div>
             <div class="stat-value mono" id="kpiTodayOrders">0</div>
-            <div class="stat-label">Orders today</div>
+            <div class="stat-label">Completed orders today</div>
             <div class="stat-foot"><i class="bi bi-check2-circle"></i><span id="kpiTodayOrdersFoot">0 completed</span></div>
           </div>
+        </div>
+
+        <div class="dash-section-heading">
+          <h2>Business at a glance</h2>
+          <p>Sales and order changes compare with yesterday. Revenue compares with the previous 30 days; monthly sales compare with last month.</p>
+        </div>
+        <div class="stat-grid six">
           <div class="stat-card">
             <div class="stat-top">
               <div class="stat-icon amber"><i class="bi bi-cup-hot"></i></div>
               <span class="stat-delta delta-flat" id="kpiProductsDelta">&nbsp;</span>
             </div>
             <div class="stat-value mono" id="kpiProducts">0</div>
-            <div class="stat-label">Total products</div>
+            <div class="stat-label">Products in catalog</div>
             <div class="stat-foot"><i class="bi bi-check2-circle"></i><span id="kpiProductsFoot">0 available on POS</span></div>
           </div>
           <div class="stat-card">
@@ -368,7 +425,7 @@
               <span class="stat-delta delta-flat" id="kpiLowStockDelta">&nbsp;</span>
             </div>
             <div class="stat-value mono" id="kpiLowStock">0</div>
-            <div class="stat-label">Low stock items</div>
+            <div class="stat-label">Items to restock</div>
             <div class="stat-foot"><i class="bi bi-x-circle"></i><span id="kpiLowStockFoot">0 out of stock</span></div>
           </div>
           <div class="stat-card">
@@ -377,7 +434,7 @@
               <span class="stat-delta delta-flat" id="kpiStaffDelta">&nbsp;</span>
             </div>
             <div class="stat-value mono" id="kpiStaff">0</div>
-            <div class="stat-label">Total staff</div>
+            <div class="stat-label">Staff accounts</div>
             <div class="stat-foot"><i class="bi bi-person-check"></i><span id="kpiStaffFoot">0 active accounts</span></div>
           </div>
           <div class="stat-card">
@@ -385,17 +442,17 @@
               <div class="stat-icon green"><i class="bi bi-graph-up-arrow"></i></div>
               <span class="stat-delta delta-flat" id="kpiRevenueDelta">&nbsp;</span>
             </div>
-            <div class="stat-value mono" id="kpiRevenue">₱0.00</div>
-            <div class="stat-label">Total revenue</div>
+            <div class="stat-value mono" id="kpiRevenue">Ã¢â€šÂ±0.00</div>
+            <div class="stat-label">Revenue to date</div>
             <div class="stat-foot"><i class="bi bi-receipt"></i><span id="kpiRevenueFoot">0 recorded transactions</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-top">
               <div class="stat-icon blue"><i class="bi bi-calendar3"></i></div>
-              <span class="stat-delta delta-flat" id="kpiMonthlyDelta">—</span>
+              <span class="stat-delta delta-flat" id="kpiMonthlyDelta">Ã¢â‚¬â€</span>
             </div>
-            <div class="stat-value mono" id="kpiMonthly">₱0.00</div>
-            <div class="stat-label">Monthly sales</div>
+            <div class="stat-value mono" id="kpiMonthly">Ã¢â€šÂ±0.00</div>
+            <div class="stat-label">Sales this month</div>
             <div class="stat-foot"><i class="bi bi-calendar-month"></i><span id="kpiMonthlyFoot">This month</span></div>
           </div>
           <div class="stat-card">
@@ -413,7 +470,7 @@
           <div class="panel">
             <div class="panel-head">
               <div>
-                <h6>Sales overview</h6>
+                <h6>Sales over time</h6>
                 <div class="cell-sub" id="chartPeriodLabel">Today</div>
               </div>
               <div class="segmented" id="dashPeriod">
@@ -430,7 +487,7 @@
               <div class="summary-strip mt-3">
                 <div class="summary-cell">
                   <div class="s1">Revenue</div>
-                  <div class="s2 mono" id="sumRevenue">₱0.00</div>
+                  <div class="s2 mono" id="sumRevenue">Ã¢â€šÂ±0.00</div>
                   <div class="s3" id="sumRangeLabel">Today</div>
                 </div>
                 <div class="summary-cell">
@@ -440,8 +497,8 @@
                 </div>
                 <div class="summary-cell">
                   <div class="s1">Average order</div>
-                  <div class="s2 mono" id="sumAov">₱0.00</div>
-                  <div class="s3">Revenue ÷ orders</div>
+                  <div class="s2 mono" id="sumAov">Ã¢â€šÂ±0.00</div>
+                  <div class="s3">Revenue divided by orders</div>
                 </div>
               </div>
             </div>
@@ -535,6 +592,10 @@
             </div>
           </div>
         </div>
+        <div class="panel dashboard-attendance-panel">
+          <div class="panel-head"><div><h6>Attendance overview</h6><div class="cell-sub">Today’s team coverage</div></div><a class="btn btn-ghost btn-sm" href="#/admin/attendance">View attendance <i class="bi bi-arrow-right"></i></a></div>
+          <div class="panel-body"><div class="attendance-overview-stats"><div><strong id="dashAttTotal">0</strong><span>Total staff</span></div><div><strong id="dashAttPresent">0</strong><span>Present</span></div><div><strong id="dashAttLate">0</strong><span>Late</span></div><div><strong id="dashAttAbsent">0</strong><span>Absent</span></div></div><div class="attendance-overview-bar"><i id="dashAttPresentBar"></i><i id="dashAttLateBar"></i><i id="dashAttAbsentBar"></i></div><div class="cell-sub mt-3 mb-2">Recent attendance</div><div id="dashRecentAttendance" class="dash-recent-attendance"></div></div>
+        </div>
       </section>
 
       <!-- ==================================================== INVENTORY -->
@@ -554,7 +615,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="invSearch" placeholder="Search item name or ID…">
+              <input type="text" class="form-control" id="invSearch" placeholder="Search item name or IDÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="invCategoryFilter" aria-label="Filter category"></select>
             <select class="form-select" id="invStatusFilter" aria-label="Filter status">
@@ -564,10 +625,10 @@
               <option value="out">Out of stock</option>
             </select>
             <select class="form-select" id="invSort" aria-label="Sort">
-              <option value="name-asc">Name A–Z</option>
-              <option value="name-desc">Name Z–A</option>
-              <option value="qty-asc">Quantity ↑</option>
-              <option value="qty-desc">Quantity ↓</option>
+              <option value="name-asc">Name AÃ¢â‚¬â€œZ</option>
+              <option value="name-desc">Name ZÃ¢â‚¬â€œA</option>
+              <option value="qty-asc">Quantity Ã¢â€ â€˜</option>
+              <option value="qty-desc">Quantity Ã¢â€ â€œ</option>
               <option value="updated-desc">Recently updated</option>
             </select>
             <div class="toolbar-spacer"></div>
@@ -611,7 +672,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="prdSearch" placeholder="Search products…">
+              <input type="text" class="form-control" id="prdSearch" placeholder="Search productsÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="prdAvailability" aria-label="Availability">
               <option value="all">All products</option>
@@ -647,7 +708,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="catSearch" placeholder="Search categories…">
+              <input type="text" class="form-control" id="catSearch" placeholder="Search categoriesÃ¢â‚¬Â¦">
             </div>
           </div>
           <div class="table-wrap">
@@ -678,7 +739,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="stfSearch" placeholder="Search name, username, ID or email…">
+              <input type="text" class="form-control" id="stfSearch" placeholder="Search name, username, ID or emailÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="stfRoleFilter" aria-label="Filter role">
               <option value="all">All roles</option>
@@ -733,7 +794,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="txnSearch" placeholder="Search transaction or cashier…">
+              <input type="text" class="form-control" id="txnSearch" placeholder="Search transaction or cashierÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="txnStatus" aria-label="Status">
               <option value="all">All statuses</option>
@@ -760,7 +821,7 @@
           </div>
           <div class="panel-foot d-flex align-items-center justify-content-between flex-wrap gap-2">
             <span class="cell-sub" id="txnCountLabel">0 transactions</span>
-            <span class="cell-sub">Total: <strong class="text-gold mono" id="txnTotal">₱0.00</strong></span>
+            <span class="cell-sub">Total: <strong class="text-gold mono" id="txnTotal">Ã¢â€šÂ±0.00</strong></span>
           </div>
         </div>
       </section>
@@ -781,7 +842,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="salesSearch" placeholder="Search receipt no. or cashier…">
+              <input type="text" class="form-control" id="salesSearch" placeholder="Search receipt no. or cashierÃ¢â‚¬Â¦">
             </div>
             <input type="date" class="form-control" id="salesFrom" style="width:auto" aria-label="From date">
             <input type="date" class="form-control" id="salesTo" style="width:auto" aria-label="To date">
@@ -808,7 +869,7 @@
           <div class="panel-foot d-flex align-items-center justify-content-between flex-wrap gap-2">
             <span class="cell-sub" id="salesCountLabel">0 transactions</span>
             <div class="d-flex align-items-center gap-3">
-              <span class="cell-sub">Filtered total: <strong class="text-gold mono" id="salesFilteredTotal">₱0.00</strong></span>
+              <span class="cell-sub">Filtered total: <strong class="text-gold mono" id="salesFilteredTotal">Ã¢â€šÂ±0.00</strong></span>
               <div class="pager" id="salesPager"></div>
             </div>
           </div>
@@ -863,15 +924,15 @@
         </div>
 
         <div class="kpi-grid">
-          <div class="kpi gold"><div class="k1">Revenue</div><div class="k2" id="repRevenue">₱0.00</div><div class="k3" id="repRevenueNote">—</div></div>
-          <div class="kpi"><div class="k1">Orders</div><div class="k2" id="repOrders">0</div><div class="k3" id="repOrdersNote">—</div></div>
-          <div class="kpi"><div class="k1">Products sold</div><div class="k2" id="repItems">0</div><div class="k3" id="repItemsNote">—</div></div>
-          <div class="kpi"><div class="k1">Average order</div><div class="k2" id="repAov">₱0.00</div><div class="k3" id="repAovNote">—</div></div>
+          <div class="kpi gold"><div class="k1">Revenue</div><div class="k2" id="repRevenue">Ã¢â€šÂ±0.00</div><div class="k3" id="repRevenueNote">Ã¢â‚¬â€</div></div>
+          <div class="kpi"><div class="k1">Orders</div><div class="k2" id="repOrders">0</div><div class="k3" id="repOrdersNote">Ã¢â‚¬â€</div></div>
+          <div class="kpi"><div class="k1">Products sold</div><div class="k2" id="repItems">0</div><div class="k3" id="repItemsNote">Ã¢â‚¬â€</div></div>
+          <div class="kpi"><div class="k1">Average order</div><div class="k2" id="repAov">Ã¢â€šÂ±0.00</div><div class="k3" id="repAovNote">Ã¢â‚¬â€</div></div>
         </div>
 
         <div class="report-grid wide-left">
           <div class="panel">
-            <div class="panel-head"><h6>Sales trend</h6><span class="export-note" id="repRangeLabel">—</span></div>
+            <div class="panel-head"><h6>Sales trend</h6><span class="export-note" id="repRangeLabel">Ã¢â‚¬â€</span></div>
             <div class="panel-body">
               <div class="chart-wrap" style="height:250px"><canvas id="repTrendChart"></canvas></div>
             </div>
@@ -929,6 +990,7 @@
             <h1 class="page-title">Settings</h1>
             <p class="page-sub">Shop profile, tax, receipts and data management</p>
           </div>
+          <div class="page-actions"><button type="button" class="btn btn-outline-gold" data-reset-intro><i class="bi bi-play-circle"></i> Play intro next time</button></div>
         </div>
 
         <div class="panel appearance-panel mb-3" id="appearancePanel">
@@ -965,6 +1027,15 @@
                     </label>
                   </div>
                   <div class="appearance-help">Gold and black remain the TRIPPERS default.</div>
+                </div>
+
+                <div class="appearance-group">
+                  <label class="form-label">Background style</label>
+                  <div class="segmented-soft" role="group" aria-label="Background style">
+                    <button type="button" data-app-surface="classic">Classic</button>
+                    <button type="button" data-app-surface="espresso">Espresso</button>
+                    <button type="button" data-app-surface="soft">Soft</button>
+                  </div>
                 </div>
 
                 <div class="appearance-group">
@@ -1016,7 +1087,7 @@
                       <span class="ap-pill"></span>
                     </div>
                     <div class="ap-cards">
-                      <div class="ap-card"><div class="l"></div><div class="v gold">₱4,280</div></div>
+                      <div class="ap-card"><div class="l"></div><div class="v gold">Ã¢â€šÂ±4,280</div></div>
                       <div class="ap-card"><div class="l"></div><div class="v">38</div></div>
                     </div>
                     <div class="ap-chart">
@@ -1025,7 +1096,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="appearance-help mt-2">Changes preview instantly; save to keep them for this browser.</div>
+                <div class="appearance-help mt-2">Changes preview instantly and are saved to your account.</div>
               </div>
             </div>
           </div>
@@ -1072,6 +1143,11 @@
                   <input type="number" class="form-control" id="setLowStock" min="0" step="1" required>
                   <div class="form-text">Used when an item has no specific minimum level.</div>
                 </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="setAttendanceStart">Shift start time</label>
+                  <input type="time" class="form-control" id="setAttendanceStart" required>
+                  <div class="form-text">Staff who clock in after this time are marked late.</div>
+                </div>
                 <div class="col-12">
                   <label class="form-label" for="setFooter">Receipt footer</label>
                   <textarea class="form-control" id="setFooter" rows="2" maxlength="180"></textarea>
@@ -1080,7 +1156,7 @@
                   <label class="form-label">Shop logo (receipts)</label>
                   <div class="image-drop" id="logoDrop">
                     <img class="preview" id="logoPreview" alt="Shop logo">
-                    <div class="hint"><strong>Click to upload a logo</strong>PNG or JPG · square images work best · compressed automatically</div>
+                    <div class="hint"><strong>Click to upload a logo</strong>PNG or JPG Ã‚Â· square images work best Ã‚Â· compressed automatically</div>
                     <input type="file" id="logoInput" accept="image/*" class="d-none">
                   </div>
                 </div>
@@ -1144,7 +1220,7 @@
                 </div>
                 <div class="detail-cell mt-3">
                   <div class="d1">Storage footprint</div>
-                  <div class="d2 mono" id="storageUsage">—</div>
+                  <div class="d2 mono" id="storageUsage">Ã¢â‚¬â€</div>
                 </div>
               </div>
             </div>
@@ -1158,7 +1234,7 @@
               <div class="col-md-4">
                 <div class="eyebrow mb-1">Application</div>
                 <div>TRIPPERS COFFEE Management System v2.0</div>
-                <div class="text-muted-soft">HTML5 · CSS3 · Bootstrap 5 · Vanilla JS · Canvas</div>
+                <div class="text-muted-soft">HTML5 Ã‚Â· CSS3 Ã‚Â· Bootstrap 5 Ã‚Â· Vanilla JS Ã‚Â· Canvas</div>
               </div>
               <div class="col-md-4">
                 <div class="eyebrow mb-1">Storage</div>
@@ -1168,7 +1244,7 @@
               <div class="col-md-4">
                 <div class="eyebrow mb-1">Demo logins</div>
                 <div>admin / admin123</div>
-                <div class="text-muted-soft">inventory / inventory123 · cashier / cashier123</div>
+                <div class="text-muted-soft">inventory / inventory123 Ã‚Â· cashier / cashier123</div>
               </div>
             </div>
           </div>
@@ -1191,7 +1267,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="actSearch" placeholder="Search activity, person or detail…">
+              <input type="text" class="form-control" id="actSearch" placeholder="Search activity, person or detailÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="actRoleFilter" aria-label="Filter role">
               <option value="all">All roles</option>
@@ -1222,7 +1298,16 @@
         </div>
       </section>
 
-    </main>
+
+      <section class="page" id="page-attendance">
+        <div class="page-head"><div><h1 class="page-title">Staff attendance</h1><p class="page-sub">See who is working and review shift hours.</p></div><div class="page-actions"><button class="btn btn-outline-gold" data-att-export><i class="bi bi-download"></i> Export CSV</button><button class="btn btn-outline-gold" data-att-print><i class="bi bi-printer"></i> Print</button></div></div>
+        <div class="stats-grid attendance-stats"><article class="stat-card"><div class="stat-label">Total staff</div><div class="stat-value" id="attTotal">0</div></article><article class="stat-card"><div class="stat-label">Present today</div><div class="stat-value" id="attPresent">0</div></article><article class="stat-card"><div class="stat-label">Late today</div><div class="stat-value" id="attLate">0</div></article><article class="stat-card"><div class="stat-label">Absent today</div><div class="stat-value" id="attAbsent">0</div></article><article class="stat-card"><div class="stat-label">Clocked in now</div><div class="stat-value" id="attWorking">0</div></article></div>
+        <div class="panel"><div class="toolbar attendance-toolbar"><input class="form-control" id="attSearch" placeholder="Search staff name or employee ID"><input class="form-control" type="date" id="attDate"><select class="form-select" id="attPeriod"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select><select class="form-select" id="attStatus"><option value="all">All statuses</option><option value="present">Present</option><option value="late">Late</option><option value="absent">Absent</option><option value="working">Clocked in</option></select></div><div class="table-wrap"><table class="table table-premium"><thead><tr><th>Staff</th><th>Date</th><th>Clock in</th><th>Clock out</th><th>Hours</th><th>Status</th><th>Actions</th></tr></thead><tbody id="attendanceRows"></tbody></table></div><div class="panel-foot" id="attendanceCount">Attendance records</div></div>
+      </section>
+      <section class="page" id="page-profile">
+        <div class="page-head"><div><h1 class="page-title">My profile</h1><p class="page-sub">Your account details and profile picture.</p></div></div>
+        <div class="profile-card panel"><div class="profile-avatar-wrap"><div class="avatar profile-avatar" id="profileAvatarPreview">?</div><label class="btn btn-outline-gold" for="profileAvatarInput"><i class="bi bi-camera"></i> Choose photo</label><input class="hidden" type="file" id="profileAvatarInput" accept="image/*"><button type="button" class="btn btn-ghost" id="profileAvatarRemove">Remove photo</button></div><div class="profile-details"><dl><dt>Full name</dt><dd id="profileFullName">â€”</dd><dt>Username</dt><dd id="profileUsername">â€”</dd><dt>Email</dt><dd id="profileEmail">â€”</dd><dt>Employee ID</dt><dd id="profileEmployeeId">â€”</dd><dt>Role</dt><dd id="profileRole">â€”</dd><dt>Account status</dt><dd id="profileStatus">â€”</dd></dl><div class="d-flex gap-2 flex-wrap"><button class="btn btn-gold" id="profileAvatarSave"><i class="bi bi-check2"></i> Save photo</button><button class="btn btn-outline-gold" id="profileChangePassword"><i class="bi bi-key"></i> Change password</button></div></div></div>
+      </section></main>
   </div>
 </div>
 
@@ -1254,6 +1339,8 @@
       <a class="side-link" href="#/inventory/history" data-route="#/inventory/history"><i class="bi bi-clock-history"></i> <span class="nav-label">Inventory History</span></a>
 
       <div class="side-section">Account</div>
+      <a class="side-link" href="#/inventory/attendance" data-route="#/inventory/attendance"><i class="bi bi-calendar2-check"></i> <span class="nav-label">My attendance</span></a>
+      <a class="side-link" href="#/inventory/settings" data-route="#/inventory/settings"><i class="bi bi-palette"></i> <span class="nav-label">Settings</span></a>
       <a class="side-link text-danger" href="#" id="invLogout"><i class="bi bi-box-arrow-right"></i> <span class="nav-label">Logout</span></a>
     </nav>
 
@@ -1276,7 +1363,7 @@
     <header class="topbar">
       <button class="top-icon d-lg-none" id="invMenuToggle" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
       <div class="topbar-leading">
-        <h2 class="topbar-title" id="invTopbarTitle">Inventory dashboard</h2>
+        <h2 class="topbar-title" id="invTopbarTitle">Inventory</h2>
         <div class="topbar-sub" id="invWelcomeLine">Welcome back!</div>
       </div>
       <div class="topbar-spacer"></div>
@@ -1284,14 +1371,14 @@
       <div class="global-search" id="invGlobalSearchWrap">
         <i class="bi bi-search"></i>
         <input type="search" class="form-control" id="invGlobalSearch" data-global-search
-          placeholder="Search inventory or movements…" autocomplete="off" aria-label="Search inventory">
+          placeholder="Search inventory or movementsÃ¢â‚¬Â¦" autocomplete="off" aria-label="Search inventory">
         <span class="gs-kbd">Ctrl K</span>
         <div class="gs-results hidden" id="invGlobalSearchResults" role="listbox" aria-label="Search results"></div>
       </div>
 
       <div class="top-clock d-none d-lg-block">
         <strong id="invClockTime">--:--:--</strong>
-        <span class="tc-date" id="invClockDate">—</span>
+        <span class="tc-date" id="invClockDate">Ã¢â‚¬â€</span>
       </div>
 
       <button class="top-icon" data-theme-toggle title="Switch theme" aria-label="Switch theme">
@@ -1329,8 +1416,8 @@
       <section class="page" id="page-inv-dashboard">
         <div class="page-head">
           <div>
-            <h1 class="page-title">Inventory dashboard</h1>
-            <p class="page-sub" id="ivWelcome">Welcome back! Here's your inventory overview.</p>
+            <h1 class="page-title">Inventory overview</h1>
+            <p class="page-sub" id="ivWelcome">See what is in stock and what needs attention.</p>
           </div>
           <div class="page-actions">
             <button class="btn btn-outline-gold" id="ivRefresh"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
@@ -1338,17 +1425,21 @@
           </div>
         </div>
 
+        <div class="dash-section-heading">
+          <h2>Stock health</h2>
+          <p>Items are healthy when their quantity is above the minimum level.</p>
+        </div>
         <div class="stat-grid">
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon"><i class="bi bi-boxes"></i></div><span class="badge-soft badge-muted">All supplies</span></div>
             <div class="stat-value mono" id="ivKpiItems">0</div>
-            <div class="stat-label">Total inventory items</div>
+            <div class="stat-label">Tracked items</div>
             <div class="stat-foot"><i class="bi bi-tags"></i><span id="ivKpiCategories">0 categories</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon green"><i class="bi bi-check2-circle"></i></div><span class="badge-soft badge-in">Healthy</span></div>
             <div class="stat-value mono" id="ivKpiInStock">0</div>
-            <div class="stat-label">Items in stock</div>
+            <div class="stat-label">Above minimum</div>
             <div class="stat-foot"><i class="bi bi-graph-up"></i><span id="ivKpiInStockFoot">Above minimum level</span></div>
           </div>
           <div class="stat-card">
@@ -1365,28 +1456,32 @@
           </div>
         </div>
 
+        <div class="dash-section-heading">
+          <h2>Stock value and activity</h2>
+          <p>Values use current quantities and item prices.</p>
+        </div>
         <div class="dash-grid">
           <div class="panel">
             <div class="panel-head">
-              <h6>Stock value</h6>
-              <span class="badge-soft badge-gold">At cost</span>
+              <h6>Value on hand</h6>
+              <span class="badge-soft badge-gold">Purchase cost</span>
             </div>
             <div class="panel-body">
-              <div class="stat-value mono" id="ivStockValue">₱0.00</div>
-              <div class="cell-sub mb-3">Total value of everything currently on hand</div>
+              <div class="stat-value mono" id="ivStockValue">Ã¢â€šÂ±0.00</div>
+              <div class="cell-sub mb-3">Estimated cost of the quantities currently in stock.</div>
               <div class="summary-strip">
                 <div class="summary-cell">
                   <div class="s1">Retail value</div>
-                  <div class="s2 mono" id="ivRetailValue">₱0.00</div>
-                  <div class="s3">At selling price</div>
+                  <div class="s2 mono" id="ivRetailValue">Ã¢â€šÂ±0.00</div>
+                  <div class="s3">If sold at current prices</div>
                 </div>
                 <div class="summary-cell">
-                  <div class="s1">Needs restocking</div>
+                  <div class="s1">Items to restock</div>
                   <div class="s2 mono" id="ivUnitsOnHand">0</div>
-                  <div class="s3">At or below minimum</div>
+                  <div class="s3">Low stock or out of stock</div>
                 </div>
                 <div class="summary-cell">
-                  <div class="s1">Stock moves</div>
+                  <div class="s1">Stock updates</div>
                   <div class="s2 mono" id="ivMoveCount">0</div>
                   <div class="s3">Recorded movements</div>
                 </div>
@@ -1396,13 +1491,17 @@
 
           <div class="panel">
             <div class="panel-head">
-              <h6>Low stock alerts</h6>
+              <h6>Items that need attention</h6>
               <a class="btn btn-ghost btn-sm" href="#/inventory/list">View list</a>
             </div>
             <div class="panel-body" id="ivAlerts"></div>
           </div>
         </div>
 
+        <div class="dash-section-heading">
+          <h2>Recent stock activity</h2>
+          <p>See what changed most recently and when.</p>
+        </div>
         <div class="dash-grid">
           <div class="panel">
             <div class="panel-head">
@@ -1438,7 +1537,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="ivtSearch" placeholder="Search item name or ID…">
+              <input type="text" class="form-control" id="ivtSearch" placeholder="Search item name or IDÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="ivtCategory" aria-label="Filter category"></select>
             <select class="form-select" id="ivtStatus" aria-label="Filter status">
@@ -1448,10 +1547,10 @@
               <option value="out">Out of stock</option>
             </select>
             <select class="form-select" id="ivtSort" aria-label="Sort">
-              <option value="name-asc">Name A–Z</option>
-              <option value="name-desc">Name Z–A</option>
-              <option value="qty-asc">Quantity ↑</option>
-              <option value="qty-desc">Quantity ↓</option>
+              <option value="name-asc">Name AÃ¢â‚¬â€œZ</option>
+              <option value="name-desc">Name ZÃ¢â‚¬â€œA</option>
+              <option value="qty-asc">Quantity Ã¢â€ â€˜</option>
+              <option value="qty-desc">Quantity Ã¢â€ â€œ</option>
               <option value="updated-desc">Recently updated</option>
             </select>
             <div class="toolbar-spacer"></div>
@@ -1497,8 +1596,8 @@
                 <select class="form-select" id="ivInItem"></select>
               </div>
               <div class="detail-grid mb-3">
-                <div class="detail-cell"><div class="d1">Current quantity</div><div class="d2" id="ivInCurrent">—</div></div>
-                <div class="detail-cell"><div class="d1">Minimum level</div><div class="d2" id="ivInMin">—</div></div>
+                <div class="detail-cell"><div class="d1">Current quantity</div><div class="d2" id="ivInCurrent">Ã¢â‚¬â€</div></div>
+                <div class="detail-cell"><div class="d1">Minimum level</div><div class="d2" id="ivInMin">Ã¢â‚¬â€</div></div>
               </div>
               <div class="row g-3">
                 <div class="col-6">
@@ -1542,8 +1641,8 @@
                 <select class="form-select" id="ivOutItem"></select>
               </div>
               <div class="detail-grid mb-3">
-                <div class="detail-cell"><div class="d1">Current quantity</div><div class="d2" id="ivOutCurrent">—</div></div>
-                <div class="detail-cell"><div class="d1">Minimum level</div><div class="d2" id="ivOutMin">—</div></div>
+                <div class="detail-cell"><div class="d1">Current quantity</div><div class="d2" id="ivOutCurrent">Ã¢â‚¬â€</div></div>
+                <div class="detail-cell"><div class="d1">Minimum level</div><div class="d2" id="ivOutMin">Ã¢â‚¬â€</div></div>
               </div>
               <div class="row g-3">
                 <div class="col-6">
@@ -1584,7 +1683,7 @@
           <div class="toolbar">
             <div class="search-box">
               <i class="bi bi-search"></i>
-              <input type="text" class="form-control" id="ivHistorySearch" placeholder="Search item, note or staff…">
+              <input type="text" class="form-control" id="ivHistorySearch" placeholder="Search item, note or staffÃ¢â‚¬Â¦">
             </div>
             <select class="form-select" id="ivHistoryType" aria-label="Movement type">
               <option value="all">All movements</option>
@@ -1605,7 +1704,19 @@
         </div>
       </section>
 
-    </main>
+
+      <section class="page" id="page-attendance">
+        <div class="page-head"><div><h1 class="page-title">Staff attendance</h1><p class="page-sub">See who is working and review shift hours.</p></div><div class="page-actions"><button class="btn btn-outline-gold" data-att-export><i class="bi bi-download"></i> Export CSV</button><button class="btn btn-outline-gold" data-att-print><i class="bi bi-printer"></i> Print</button></div></div>
+        <div class="stats-grid attendance-stats"><article class="stat-card"><div class="stat-label">Total staff</div><div class="stat-value" id="attTotal">0</div></article><article class="stat-card"><div class="stat-label">Present today</div><div class="stat-value" id="attPresent">0</div></article><article class="stat-card"><div class="stat-label">Late today</div><div class="stat-value" id="attLate">0</div></article><article class="stat-card"><div class="stat-label">Absent today</div><div class="stat-value" id="attAbsent">0</div></article><article class="stat-card"><div class="stat-label">Clocked in now</div><div class="stat-value" id="attWorking">0</div></article></div>
+        <div class="panel"><div class="toolbar attendance-toolbar"><input class="form-control" id="attSearch" placeholder="Search staff name or employee ID"><input class="form-control" type="date" id="attDate"><select class="form-select" id="attPeriod"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select><select class="form-select" id="attStatus"><option value="all">All statuses</option><option value="present">Present</option><option value="late">Late</option><option value="absent">Absent</option><option value="working">Clocked in</option></select></div><div class="table-wrap"><table class="table table-premium"><thead><tr><th>Staff</th><th>Date</th><th>Clock in</th><th>Clock out</th><th>Hours</th><th>Status</th><th>Actions</th></tr></thead><tbody id="attendanceRows"></tbody></table></div><div class="panel-foot" id="attendanceCount">Attendance records</div></div>
+      </section>
+      <section class="page" id="page-profile">
+        <div class="page-head"><div><h1 class="page-title">My profile</h1><p class="page-sub">Your account details and profile picture.</p></div></div>
+        <div class="profile-card panel"><div class="profile-avatar-wrap"><div class="avatar profile-avatar" id="profileAvatarPreview">?</div><label class="btn btn-outline-gold" for="profileAvatarInput"><i class="bi bi-camera"></i> Choose photo</label><input class="hidden" type="file" id="profileAvatarInput" accept="image/*"><button type="button" class="btn btn-ghost" id="profileAvatarRemove">Remove photo</button></div><div class="profile-details"><dl><dt>Full name</dt><dd id="profileFullName">â€”</dd><dt>Username</dt><dd id="profileUsername">â€”</dd><dt>Email</dt><dd id="profileEmail">â€”</dd><dt>Employee ID</dt><dd id="profileEmployeeId">â€”</dd><dt>Role</dt><dd id="profileRole">â€”</dd><dt>Account status</dt><dd id="profileStatus">â€”</dd></dl><div class="d-flex gap-2 flex-wrap"><button class="btn btn-gold" id="profileAvatarSave"><i class="bi bi-check2"></i> Save photo</button><button class="btn btn-outline-gold" id="profileChangePassword"><i class="bi bi-key"></i> Change password</button></div></div></div>
+      </section>      <section class="page" id="page-settings">
+        <div class="page-head"><div><h1 class="page-title">Appearance settings</h1><p class="page-sub">Choose how the app looks. Your choices are saved to your account.</p></div></div>
+        <div class="panel staff-settings-panel"><div class="appearance-group"><label class="form-label">Theme</label><div class="segmented-soft"><button type="button" data-staff-app-theme="dark">Dark</button><button type="button" data-staff-app-theme="light">Light</button><button type="button" data-staff-app-theme="system">System</button></div></div><div class="appearance-group"><label class="form-label">Accent colour</label><div class="segmented-soft"><button type="button" data-staff-app-accent="gold">Gold</button><button type="button" data-staff-app-accent="brown">Brown</button><button type="button" data-staff-app-accent="black">Black</button></div></div><div class="appearance-group"><label class="form-label">Background</label><div class="segmented-soft"><button type="button" data-staff-app-surface="classic">Classic</button><button type="button" data-staff-app-surface="espresso">Espresso</button><button type="button" data-staff-app-surface="soft">Soft</button></div></div><div class="appearance-group"><label class="form-label">Sidebar</label><div class="segmented-soft"><button type="button" data-staff-app-sidebar="expanded">Expanded</button><button type="button" data-staff-app-sidebar="collapsed">Collapsed</button></div></div><div class="d-flex gap-2 mt-3"><button type="button" class="btn btn-gold" data-staff-app-save>Save changes</button><button type="button" class="btn btn-outline-gold" data-staff-app-reset>Reset to default</button><button type="button" class="btn btn-ghost" data-reset-intro>Replay intro next time</button></div></div>
+      </section></main>
   </div>
 </div>
 
@@ -1632,6 +1743,8 @@
       <a class="side-link" href="#/pos"><i class="bi bi-shop-window"></i> <span class="nav-label">Open POS</span></a>
 
       <div class="side-section">Account</div>
+      <a class="side-link" href="#/cashier/attendance" data-route="#/cashier/attendance"><i class="bi bi-calendar2-check"></i> <span class="nav-label">My attendance</span></a>
+      <a class="side-link" href="#/cashier/settings" data-route="#/cashier/settings"><i class="bi bi-palette"></i> <span class="nav-label">Settings</span></a>
       <a class="side-link text-danger" href="#" id="cashierLogout"><i class="bi bi-box-arrow-right"></i> <span class="nav-label">Logout</span></a>
     </nav>
 
@@ -1643,7 +1756,7 @@
         <div class="avatar" id="cashierAvatar">C</div>
         <div>
           <div class="u1" id="cashierSideName">Cashier</div>
-          <div class="u2">Cashier · Front counter</div>
+          <div class="u2">Cashier Ã‚Â· Front counter</div>
         </div>
       </div>
     </div>
@@ -1654,7 +1767,7 @@
     <header class="topbar">
       <button class="top-icon d-lg-none" id="cashierMenuToggle" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
       <div class="topbar-leading">
-        <h2 class="topbar-title" id="cashierTopbarTitle">Cashier dashboard</h2>
+        <h2 class="topbar-title" id="cashierTopbarTitle">Your shift</h2>
         <div class="topbar-sub" id="cashierWelcomeLine">Welcome back!</div>
       </div>
       <div class="topbar-spacer"></div>
@@ -1662,14 +1775,14 @@
       <div class="global-search" id="cashierGlobalSearchWrap">
         <i class="bi bi-search"></i>
         <input type="search" class="form-control" id="cashierGlobalSearch" data-global-search
-          placeholder="Search the menu or your sales…" autocomplete="off" aria-label="Search menu and sales">
+          placeholder="Search the menu or your salesÃ¢â‚¬Â¦" autocomplete="off" aria-label="Search menu and sales">
         <span class="gs-kbd">Ctrl K</span>
         <div class="gs-results hidden" id="cashierGlobalSearchResults" role="listbox" aria-label="Search results"></div>
       </div>
 
       <div class="top-clock d-none d-lg-block">
         <strong id="cashierClockTime">--:--:--</strong>
-        <span class="tc-date" id="cashierClockDate">—</span>
+        <span class="tc-date" id="cashierClockDate">Ã¢â‚¬â€</span>
       </div>
 
       <button class="top-icon" data-theme-toggle title="Switch theme" aria-label="Switch theme">
@@ -1706,8 +1819,8 @@
       <section class="page" id="page-cashier-dashboard">
         <div class="page-head">
           <div>
-            <h1 class="page-title">Cashier dashboard</h1>
-            <p class="page-sub" id="cashierSubtitle">Your shift at a glance</p>
+            <h1 class="page-title">Your shift</h1>
+            <p class="page-sub" id="cashierSubtitle">Your sales and activity for today.</p>
           </div>
           <div class="page-actions">
             <button class="btn btn-outline-gold" id="cashierRefresh"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
@@ -1715,24 +1828,28 @@
           </div>
         </div>
 
+        <div class="dash-section-heading">
+          <h2>Shift summary</h2>
+          <p>Today's results and your running totals.</p>
+        </div>
         <div class="stat-grid six">
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon"><i class="bi bi-cash-stack"></i></div><span class="badge-soft badge-gold">Today</span></div>
-            <div class="stat-value mono" id="cashTodaySales">₱0.00</div>
-            <div class="stat-label">My sales today</div>
+            <div class="stat-value mono" id="cashTodaySales">Ã¢â€šÂ±0.00</div>
+            <div class="stat-label">Sales today</div>
             <div class="stat-foot"><i class="bi bi-calendar-day"></i><span id="cashTodayFoot">No sales yet today</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon green"><i class="bi bi-bag-check"></i></div><span class="badge-soft badge-in">Completed</span></div>
             <div class="stat-value mono" id="cashTodayOrders">0</div>
-            <div class="stat-label">Orders today</div>
+            <div class="stat-label">Completed orders today</div>
             <div class="stat-foot"><i class="bi bi-check2-circle"></i><span id="cashTodayOrdersFoot">0 finished orders</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon amber"><i class="bi bi-receipt"></i></div><span class="badge-soft badge-muted">Average</span></div>
-            <div class="stat-value mono" id="cashAvgOrder">₱0.00</div>
-            <div class="stat-label">Average order</div>
-            <div class="stat-foot"><i class="bi bi-graph-up"></i><span>Revenue ÷ orders</span></div>
+            <div class="stat-value mono" id="cashAvgOrder">Ã¢â€šÂ±0.00</div>
+            <div class="stat-label">Average sale today</div>
+            <div class="stat-foot"><i class="bi bi-graph-up"></i><span>Today's sales divided by orders</span></div>
           </div>
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon"><i class="bi bi-cup-hot"></i></div><span class="badge-soft badge-muted">Units</span></div>
@@ -1742,8 +1859,8 @@
           </div>
           <div class="stat-card">
             <div class="stat-top"><div class="stat-icon green"><i class="bi bi-wallet2"></i></div><span class="badge-soft badge-in">All time</span></div>
-            <div class="stat-value mono" id="cashRevenueAll">₱0.00</div>
-            <div class="stat-label">My total revenue</div>
+            <div class="stat-value mono" id="cashRevenueAll">Ã¢â€šÂ±0.00</div>
+            <div class="stat-label">Revenue to date</div>
             <div class="stat-foot"><i class="bi bi-receipt"></i><span id="cashAllTxns">0 transactions</span></div>
           </div>
           <div class="stat-card">
@@ -1758,7 +1875,7 @@
           <div class="panel">
             <div class="panel-head">
               <div>
-                <h6>My recent transactions</h6>
+                <h6>Your latest sales</h6>
                 <div class="cell-sub">Only sales recorded under your account</div>
               </div>
               <button class="btn btn-ghost btn-sm" id="cashierMySales"><i class="bi bi-clock-history"></i> Full history</button>
@@ -1773,7 +1890,7 @@
 
           <div class="panel">
             <div class="panel-head">
-              <h6>Your top products</h6>
+              <h6>Your most-sold products</h6>
               <span class="badge-soft badge-gold">By units</span>
             </div>
             <div class="panel-body">
@@ -1814,7 +1931,19 @@
           </div>
         </div>
       </section>
-    </main>
+
+      <section class="page" id="page-attendance">
+        <div class="page-head"><div><h1 class="page-title">Staff attendance</h1><p class="page-sub">See who is working and review shift hours.</p></div><div class="page-actions"><button class="btn btn-outline-gold" data-att-export><i class="bi bi-download"></i> Export CSV</button><button class="btn btn-outline-gold" data-att-print><i class="bi bi-printer"></i> Print</button></div></div>
+        <div class="stats-grid attendance-stats"><article class="stat-card"><div class="stat-label">Total staff</div><div class="stat-value" id="attTotal">0</div></article><article class="stat-card"><div class="stat-label">Present today</div><div class="stat-value" id="attPresent">0</div></article><article class="stat-card"><div class="stat-label">Late today</div><div class="stat-value" id="attLate">0</div></article><article class="stat-card"><div class="stat-label">Absent today</div><div class="stat-value" id="attAbsent">0</div></article><article class="stat-card"><div class="stat-label">Clocked in now</div><div class="stat-value" id="attWorking">0</div></article></div>
+        <div class="panel"><div class="toolbar attendance-toolbar"><input class="form-control" id="attSearch" placeholder="Search staff name or employee ID"><input class="form-control" type="date" id="attDate"><select class="form-select" id="attPeriod"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select><select class="form-select" id="attStatus"><option value="all">All statuses</option><option value="present">Present</option><option value="late">Late</option><option value="absent">Absent</option><option value="working">Clocked in</option></select></div><div class="table-wrap"><table class="table table-premium"><thead><tr><th>Staff</th><th>Date</th><th>Clock in</th><th>Clock out</th><th>Hours</th><th>Status</th><th>Actions</th></tr></thead><tbody id="attendanceRows"></tbody></table></div><div class="panel-foot" id="attendanceCount">Attendance records</div></div>
+      </section>
+      <section class="page" id="page-profile">
+        <div class="page-head"><div><h1 class="page-title">My profile</h1><p class="page-sub">Your account details and profile picture.</p></div></div>
+        <div class="profile-card panel"><div class="profile-avatar-wrap"><div class="avatar profile-avatar" id="profileAvatarPreview">?</div><label class="btn btn-outline-gold" for="profileAvatarInput"><i class="bi bi-camera"></i> Choose photo</label><input class="hidden" type="file" id="profileAvatarInput" accept="image/*"><button type="button" class="btn btn-ghost" id="profileAvatarRemove">Remove photo</button></div><div class="profile-details"><dl><dt>Full name</dt><dd id="profileFullName">â€”</dd><dt>Username</dt><dd id="profileUsername">â€”</dd><dt>Email</dt><dd id="profileEmail">â€”</dd><dt>Employee ID</dt><dd id="profileEmployeeId">â€”</dd><dt>Role</dt><dd id="profileRole">â€”</dd><dt>Account status</dt><dd id="profileStatus">â€”</dd></dl><div class="d-flex gap-2 flex-wrap"><button class="btn btn-gold" id="profileAvatarSave"><i class="bi bi-check2"></i> Save photo</button><button class="btn btn-outline-gold" id="profileChangePassword"><i class="bi bi-key"></i> Change password</button></div></div></div>
+      </section>      <section class="page" id="page-settings">
+        <div class="page-head"><div><h1 class="page-title">Appearance settings</h1><p class="page-sub">Choose how the app looks. Your choices are saved to your account.</p></div></div>
+        <div class="panel staff-settings-panel"><div class="appearance-group"><label class="form-label">Theme</label><div class="segmented-soft"><button type="button" data-staff-app-theme="dark">Dark</button><button type="button" data-staff-app-theme="light">Light</button><button type="button" data-staff-app-theme="system">System</button></div></div><div class="appearance-group"><label class="form-label">Accent colour</label><div class="segmented-soft"><button type="button" data-staff-app-accent="gold">Gold</button><button type="button" data-staff-app-accent="brown">Brown</button><button type="button" data-staff-app-accent="black">Black</button></div></div><div class="appearance-group"><label class="form-label">Background</label><div class="segmented-soft"><button type="button" data-staff-app-surface="classic">Classic</button><button type="button" data-staff-app-surface="espresso">Espresso</button><button type="button" data-staff-app-surface="soft">Soft</button></div></div><div class="appearance-group"><label class="form-label">Sidebar</label><div class="segmented-soft"><button type="button" data-staff-app-sidebar="expanded">Expanded</button><button type="button" data-staff-app-sidebar="collapsed">Collapsed</button></div></div><div class="d-flex gap-2 mt-3"><button type="button" class="btn btn-gold" data-staff-app-save>Save changes</button><button type="button" class="btn btn-outline-gold" data-staff-app-reset>Reset to default</button><button type="button" class="btn btn-ghost" data-reset-intro>Replay intro next time</button></div></div>
+      </section></main>
   </div>
 </div>
 
@@ -1829,14 +1958,14 @@
       </div>
       <div class="brand-text">
         <div class="b1">TRIPPERS</div>
-        <div class="b2">Coffee · POS</div>
+        <div class="b2">Coffee Ã‚Â· POS</div>
       </div>
     </div>
 
     <div class="pos-shift ms-2">
       <i class="bi bi-person-badge"></i>
-      <span>Cashier: <strong id="posCashierName">—</strong></span>
-      <span class="badge-soft badge-gold ms-1" id="posShiftDate">—</span>
+      <span>Cashier: <strong id="posCashierName">Ã¢â‚¬â€</strong></span>
+      <span class="badge-soft badge-gold ms-1" id="posShiftDate">Ã¢â‚¬â€</span>
     </div>
 
     <div class="topbar-spacer"></div>
@@ -1855,7 +1984,7 @@
     <section class="pos-menu">
       <div class="pos-welcome">
         <div class="pw-main">
-          <div class="pw1">Welcome back, <span id="posWelcomeName">Cashier</span>! <span class="pw-wave">☕</span></div>
+          <div class="pw1">Welcome back, <span id="posWelcomeName">Cashier</span>! <span class="pw-wave">Ã¢Ëœâ€¢</span></div>
           <div class="pw2">Ready to serve your customers?</div>
         </div>
         <div class="pos-stats">
@@ -1865,7 +1994,7 @@
           </div>
           <div class="pos-stat">
             <span class="ps-1"><i class="bi bi-cash-stack"></i> Today's sales</span>
-            <span class="ps-2 mono" id="posStatSales">₱0.00</span>
+            <span class="ps-2 mono" id="posStatSales">Ã¢â€šÂ±0.00</span>
           </div>
           <div class="pos-stat">
             <span class="ps-1"><i class="bi bi-bag-check"></i> Completed orders</span>
@@ -1873,7 +2002,7 @@
           </div>
           <div class="pos-stat">
             <span class="ps-1"><i class="bi bi-person-badge"></i> Current cashier</span>
-            <span class="ps-2 ps-name" id="posStatCashier">—</span>
+            <span class="ps-2 ps-name" id="posStatCashier">Ã¢â‚¬â€</span>
           </div>
         </div>
       </div>
@@ -1881,7 +2010,7 @@
       <div class="pos-search-row">
         <div class="search-box">
           <i class="bi bi-search"></i>
-          <input type="text" class="form-control" id="posSearch" placeholder="Search the menu…" autocomplete="off">
+          <input type="text" class="form-control" id="posSearch" placeholder="Search the menuÃ¢â‚¬Â¦" autocomplete="off">
         </div>
         <button class="btn btn-outline-gold" id="posClearSearch" title="Clear search"><i class="bi bi-x-lg"></i></button>
       </div>
@@ -1906,21 +2035,21 @@
       <div class="cart-items" id="posCartItems"></div>
 
       <div class="cart-totals">
-        <div class="tot-row"><span>Subtotal</span><span class="v" id="posSubtotal">₱0.00</span></div>
+        <div class="tot-row"><span>Subtotal</span><span class="v" id="posSubtotal">Ã¢â€šÂ±0.00</span></div>
         <div class="discount-row">
           <select class="form-select" id="posDiscountType">
             <option value="percent">% off</option>
-            <option value="amount">₱ off</option>
+            <option value="amount">Ã¢â€šÂ± off</option>
           </select>
           <input type="number" class="form-control" id="posDiscountValue" min="0" step="0.01" value="0" placeholder="Discount">
         </div>
-        <div class="tot-row discount"><span>Discount</span><span class="v" id="posDiscountAmount">− ₱0.00</span></div>
-        <div class="tot-row"><span>VAT (<span id="posTaxRate">12</span>%)</span><span class="v" id="posTax">₱0.00</span></div>
-        <div class="tot-row grand"><span>Total</span><span class="v" id="posTotal">₱0.00</span></div>
+        <div class="tot-row discount"><span>Discount</span><span class="v" id="posDiscountAmount">Ã¢Ë†â€™ Ã¢â€šÂ±0.00</span></div>
+        <div class="tot-row"><span>VAT (<span id="posTaxRate">12</span>%)</span><span class="v" id="posTax">Ã¢â€šÂ±0.00</span></div>
+        <div class="tot-row grand"><span>Total</span><span class="v" id="posTotal">Ã¢â€šÂ±0.00</span></div>
       </div>
 
       <div class="cart-actions">
-        <button class="btn btn-gold btn-checkout" id="posCheckout"><i class="bi bi-credit-card-2-front"></i> Charge <span id="posChargeAmount">₱0.00</span></button>
+        <button class="btn btn-gold btn-checkout" id="posCheckout"><i class="bi bi-credit-card-2-front"></i> Charge <span id="posChargeAmount">Ã¢â€šÂ±0.00</span></button>
         <div class="row2">
           <button class="btn btn-ghost" id="posClearCart"><i class="bi bi-trash3"></i> Clear order</button>
           <button class="btn btn-outline-gold" id="posHold"><i class="bi bi-pause-circle"></i> Save draft</button>
@@ -1931,8 +2060,8 @@
 
   <div class="pos-mobile-bar" id="posMobileBar">
     <div class="mb-info">
-      <div class="mb1"><span id="posMobileCount">0 items</span> · tap to review</div>
-      <div class="mb2" id="posMobileTotal">₱0.00</div>
+      <div class="mb1"><span id="posMobileCount">0 items</span> Ã‚Â· tap to review</div>
+      <div class="mb2" id="posMobileTotal">Ã¢â€šÂ±0.00</div>
     </div>
     <button class="btn btn-gold" id="posMobileReview"><i class="bi bi-bag"></i> View order</button>
   </div>
@@ -2001,14 +2130,14 @@
             <div class="col-md-6">
               <label class="form-label" for="invCost">Cost price (per unit)</label>
               <div class="input-group">
-                <span class="input-group-text" data-currency-symbol>₱</span>
+                <span class="input-group-text" data-currency-symbol>Ã¢â€šÂ±</span>
                 <input type="number" class="form-control" id="invCost" min="0" step="0.01" required>
               </div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="invPrice">Selling price (per unit)</label>
               <div class="input-group">
-                <span class="input-group-text" data-currency-symbol>₱</span>
+                <span class="input-group-text" data-currency-symbol>Ã¢â€šÂ±</span>
                 <input type="number" class="form-control" id="invPrice" min="0" step="0.01" required>
               </div>
             </div>
@@ -2128,7 +2257,7 @@
                 <div class="col-md-6">
                   <label class="form-label" for="prdPrice">Selling price</label>
                   <div class="input-group">
-                    <span class="input-group-text" data-currency-symbol>₱</span>
+                    <span class="input-group-text" data-currency-symbol>Ã¢â€šÂ±</span>
                     <input type="number" class="form-control" id="prdPrice" min="0" step="0.01" required>
                   </div>
                 </div>
@@ -2151,7 +2280,7 @@
                 </div>
               </div>
 
-              <div class="section-title mt-4">Recipe — deducts stock on sale</div>
+              <div class="section-title mt-4">Recipe Ã¢â‚¬â€ deducts stock on sale</div>
               <div class="recipe-box">
                 <div id="recipeRows"></div>
                 <button type="button" class="btn btn-outline-gold btn-sm mt-1" id="addRecipeRow"><i class="bi bi-plus-lg"></i> Add ingredient</button>
@@ -2167,7 +2296,7 @@
                 <img class="preview" id="prdImagePreview" alt="Product preview">
                 <div class="hint">
                   <strong>Click to upload</strong>
-                  Square or landscape · JPG/PNG · compressed automatically
+                  Square or landscape Ã‚Â· JPG/PNG Ã‚Â· compressed automatically
                 </div>
                 <input type="file" id="prdImageInput" accept="image/*" class="d-none">
               </div>
@@ -2183,7 +2312,7 @@
                     <div class="product-body">
                       <div class="product-name" id="prdPreviewName">Product name</div>
                       <div class="product-cat" id="prdPreviewCat">Category</div>
-                      <div class="product-price mt-1" id="prdPreviewPrice">₱0.00</div>
+                      <div class="product-price mt-1" id="prdPreviewPrice">Ã¢â€šÂ±0.00</div>
                     </div>
                   </div>
                 </div>
@@ -2285,8 +2414,8 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="stfPassword">Password</label>
-              <input type="password" class="form-control" id="stfPassword" autocomplete="new-password" placeholder="Min. 6 characters">
+              <label class="form-label" for="stfPassword">Temporary password</label>
+              <input type="password" class="form-control" id="stfPassword" autocomplete="new-password" placeholder="At least 6 characters">
               <div class="form-text" id="stfPasswordHint">Minimum 6 characters.</div>
             </div>
             <div class="col-md-6">
@@ -2339,7 +2468,7 @@
         <div class="modal-body">
           <input type="hidden" id="resetUserId">
           <div id="resetPwError" class="alert alert-premium danger py-2 px-3 mb-3 hidden"></div>
-          <p class="cell-sub mb-3">Set a new temporary password for <strong id="resetUserName">—</strong>. Share it with them privately, then ask them to change it after signing in.</p>
+          <p class="cell-sub mb-3">Set a temporary password for <strong id="resetUserName">Ã¢â‚¬â€</strong> and share it privately. They must choose a new password before entering their dashboard.</p>
           <div class="mb-3">
             <label class="form-label" for="resetPassword">New password</label>
             <input type="password" class="form-control" id="resetPassword" autocomplete="new-password" placeholder="Min. 6 characters">
@@ -2398,7 +2527,7 @@
             <div id="payCashWrap">
               <label class="form-label" for="payCash">Cash received</label>
               <div class="input-group">
-                <span class="input-group-text" data-currency-symbol>₱</span>
+                <span class="input-group-text" data-currency-symbol>Ã¢â€šÂ±</span>
                 <input type="number" class="form-control" id="payCash" min="0" step="0.01" placeholder="0.00">
               </div>
               <div class="quick-cash" id="quickCash">
@@ -2421,17 +2550,17 @@
 
             <div class="change-box" id="payChangeBox">
               <span class="cb1" id="payChangeLabel">Change due</span>
-              <span class="cb2 mono" id="payChange">₱0.00</span>
+              <span class="cb2 mono" id="payChange">Ã¢â€šÂ±0.00</span>
             </div>
           </div>
 
           <div class="col-md-6">
             <div class="pay-summary">
               <div class="ps-row"><span>Items</span><span id="payItemCount">0</span></div>
-              <div class="ps-row"><span>Subtotal</span><span id="paySubtotal">₱0.00</span></div>
-              <div class="ps-row"><span>Discount</span><span id="payDiscount">₱0.00</span></div>
-              <div class="ps-row"><span>VAT</span><span id="payTax">₱0.00</span></div>
-              <div class="ps-row ps-total"><span>Total</span><span id="payTotal">₱0.00</span></div>
+              <div class="ps-row"><span>Subtotal</span><span id="paySubtotal">Ã¢â€šÂ±0.00</span></div>
+              <div class="ps-row"><span>Discount</span><span id="payDiscount">Ã¢â€šÂ±0.00</span></div>
+              <div class="ps-row"><span>VAT</span><span id="payTax">Ã¢â€šÂ±0.00</span></div>
+              <div class="ps-row ps-total"><span>Total</span><span id="payTotal">Ã¢â€šÂ±0.00</span></div>
             </div>
             <div class="mt-3 p-2 rounded" style="background:#1b1814;border:1px solid var(--border);font-size:.75rem;color:var(--muted)">
               <i class="bi bi-shield-check text-gold"></i>
@@ -2460,7 +2589,7 @@
       <div class="modal-body">
         <div class="text-center mb-3" id="receiptSuccessMsg">
           <div class="eyebrow">Payment received</div>
-          <div class="mono" style="font-size:1.6rem;font-weight:700;color:var(--gold-light)" id="receiptChangeLine">₱0.00</div>
+          <div class="mono" style="font-size:1.6rem;font-weight:700;color:var(--gold-light)" id="receiptChangeLine">Ã¢â€šÂ±0.00</div>
           <div class="cell-sub" id="receiptChangeLabel">Change due</div>
         </div>
         <div class="receipt-stage" id="receiptStage"></div>
@@ -2498,18 +2627,18 @@
       <form id="accountForm" novalidate>
         <div class="modal-body">
           <div id="accountError" class="alert alert-premium danger py-2 px-3 mb-3 hidden"></div>
-          <div class="alert alert-premium info py-2 px-3 mb-3" style="font-size:.78rem" id="accountWho">—</div>
+          <div class="alert alert-premium info py-2 px-3 mb-3" style="font-size:.78rem" id="accountWho">Ã¢â‚¬â€</div>
           <div class="mb-3">
             <label class="form-label" for="acctCurrent">Current password</label>
-            <input type="password" class="form-control" id="acctCurrent" autocomplete="current-password">
+            <div class="input-group"><input type="password" class="form-control" id="acctCurrent" autocomplete="current-password"><button type="button" class="btn btn-outline-gold" data-password-toggle="acctCurrent" aria-label="Show password"><i class="bi bi-eye"></i></button></div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="acctNew">New password</label>
-            <input type="password" class="form-control" id="acctNew" autocomplete="new-password" placeholder="Min. 6 characters">
+            <div class="input-group"><input type="password" class="form-control" id="acctNew" autocomplete="new-password" placeholder="Min. 6 characters"><button type="button" class="btn btn-outline-gold" data-password-toggle="acctNew" aria-label="Show password"><i class="bi bi-eye"></i></button></div>
           </div>
           <div>
             <label class="form-label" for="acctConfirm">Confirm new password</label>
-            <input type="password" class="form-control" id="acctConfirm" autocomplete="new-password">
+            <div class="input-group"><input type="password" class="form-control" id="acctConfirm" autocomplete="new-password"><button type="button" class="btn btn-outline-gold" data-password-toggle="acctConfirm" aria-label="Show password"><i class="bi bi-eye"></i></button></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -2544,7 +2673,7 @@
 <!-- Toast container -->
 <div class="toast-stack" id="toastStack"></div>
 
-<!-- Scripts (classic, ordered — no ES modules so file:// works) -->
+<!-- Scripts (classic, ordered Ã¢â‚¬â€ no ES modules so file:// works) -->
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/auth.js"></script>
@@ -2564,6 +2693,8 @@
 <script src="js/settings.js"></script>
 <script src="js/search.js"></script>
 <script src="js/cashier.js"></script>
+<script src="js/attendance.js"></script>
+<script src="js/intro.js?v=intro-cinematic-7"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -245,7 +245,7 @@
 
     document.getElementById("dashSubtitle").textContent =
       now.toLocaleDateString("en-PH", { weekday: "long", day: "numeric", month: "long", year: "numeric" }) +
-      " · " + U.money(today.total) + " sold today";
+      " · " + U.money(today.total) + " in completed sales today.";
   }
 
   /* ------------------------------------------------------------- best sellers */
@@ -270,7 +270,7 @@
 
     if (!rows.length) {
       list.innerHTML = '<div class="empty-state" style="padding:1.4rem 1rem"><i class="bi bi-cup-hot"></i>' +
-        "<p>No products sold yet.</p></div>";
+        "<p>No completed sales yet. Start a sale to see which products are popular.</p></div>";
       return;
     }
 
@@ -430,7 +430,7 @@
     if (!low.length) {
       box.innerHTML = '<div class="empty-state" style="padding:1.4rem 1rem">' +
         '<i class="bi bi-check2-circle" style="color:#5fae8a"></i>' +
-        "<p>All stock levels are healthy.</p></div>";
+        "<p>Great—nothing needs restocking right now.</p></div>";
       return;
     }
 
@@ -491,7 +491,7 @@
         metric = moves + " stock move" + (moves === 1 ? "" : "s");
       }
       return '<div class="staff-row">' +
-        '<div class="avatar">' + U.esc(U.initials(u.fullName)) + "</div>" +
+        (u.avatarData ? '<img class="avatar" src="' + U.attr(u.avatarData) + '" alt="">' : '<div class="avatar">' + U.esc(U.initials(u.fullName)) + "</div>") +
         '<div class="flex-grow-1 min-w-0">' +
         '<div class="staff-name">' + U.esc(u.fullName) + "</div>" +
         '<div class="cell-sub">' + (u.role === "inventory" ? "Inventory Staff" : "Cashier") +
@@ -501,6 +501,23 @@
           : '<span class="badge-soft badge-muted">Inactive</span>') +
         "</div>";
     }).join("");
+  }
+
+  function renderAttendanceOverview() {
+    var box = document.getElementById("dashRecentAttendance");
+    if (!box) return;
+    var users = Store.db.users.filter(function (u) { return u.role !== "admin" && u.status === "active"; });
+    var today = U.todayISO();
+    var rows = (Store.db.attendance || []).filter(function (r) { return r.date === today && r.clockInAt; });
+    var parts = String(Store.db.settings.attendanceStartTime || "09:00").split(":");
+    var start = (Number(parts[0]) || 0) * 60 + (Number(parts[1]) || 0);
+    var present = rows.filter(function (r) { var d = new Date(r.clockInAt); return d.getHours() * 60 + d.getMinutes() <= start; }).length;
+    var late = rows.filter(function (r) { var d = new Date(r.clockInAt); return d.getHours() * 60 + d.getMinutes() > start; }).length;
+    var absent = Math.max(0, users.length - rows.length), total = users.length || 1;
+    [["dashAttTotal", users.length], ["dashAttPresent", present], ["dashAttLate", late], ["dashAttAbsent", absent]].forEach(function (p) { var el = document.getElementById(p[0]); if (el) el.textContent = p[1]; });
+    [["dashAttPresentBar", present], ["dashAttLateBar", late], ["dashAttAbsentBar", absent]].forEach(function (p) { var el = document.getElementById(p[0]); if (el) el.style.width = Math.round(p[1] / total * 100) + "%"; });
+    var sorted = rows.slice().sort(function (a, b) { return b.clockInAt.localeCompare(a.clockInAt); }).slice(0, 4);
+    box.innerHTML = sorted.length ? sorted.map(function (r) { var u = Store.user(r.userId); if (!u) return ""; var d = new Date(r.clockInAt), lateNow = d.getHours() * 60 + d.getMinutes() > start; return '<div class="dash-att-row"><span class="dash-att-name">' + U.esc(u.fullName) + '</span><span class="cell-sub">' + U.esc(U.fmtTime(r.clockInAt)) + '</span><span class="badge-soft ' + (lateNow ? "badge-low" : "badge-in") + '">' + (lateNow ? "Late" : "Present") + '</span></div>'; }).join("") : '<div class="cell-sub">No one has clocked in yet today.</div>';
   }
 
   /* ------------------------------------------------------------- quick actions */
@@ -586,6 +603,7 @@
       renderRecent();
       renderAlerts();
       renderStaff();
+      renderAttendanceOverview();
       bind();
     },
 

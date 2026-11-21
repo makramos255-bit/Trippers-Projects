@@ -693,6 +693,73 @@ a:hover { color: var(--gold-light); }
   z-index: 0;
 }
 
+/* The login uses the supplied café photo with a restrained dark overlay. */
+#loginView .auth-bg { background: #111411; }
+#loginView .auth-card {
+  max-width: 390px;
+  padding: clamp(1.1rem, 2.5vh, 1.7rem) clamp(1rem, 4vw, 1.6rem);
+  background: rgba(15, 15, 15, .55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, .25);
+  border-radius: 22px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 245, 220, .08);
+}
+#loginView .form-label { color:#eee5d4; }
+#loginView .form-control {
+  background-color:rgba(12, 12, 12, .44);
+  border-color:rgba(235, 218, 180, .2);
+  color:#fff;
+}
+#loginView .form-control::placeholder { color:rgba(238, 229, 212, .58); }
+#loginView .form-control:focus {
+  background-color:rgba(12, 12, 12, .62);
+  border-color:rgba(232, 201, 106, .78);
+  color:#fff;
+  box-shadow:0 0 0 3px rgba(212, 175, 55, .14),0 5px 18px rgba(0, 0, 0, .14);
+}
+#loginView .input-group-text { background:rgba(12, 12, 12, .48);border-color:rgba(235, 218, 180, .2);color:#d8c9aa; }
+#loginView .form-check-label { color:#e9e2d5; }
+#loginView .auth-sub { color:#e0d4bf; }
+#loginView .auth-demo { border-top-color:rgba(235, 218, 180, .22); }
+#loginView .demo-chip { background:rgba(12, 12, 12, .38);border-color:rgba(235, 218, 180, .18); }
+#loginView .demo-chip:hover { background:rgba(31, 24, 16, .64);border-color:rgba(212, 175, 55, .42); }
+#loginView .auth-emblem {
+  width: clamp(130px, 12vw, 160px);
+  height: clamp(130px, 12vw, 160px);
+  margin-bottom: 0;
+}
+#loginView .emblem-logo { width: clamp(118px, 10vw, 142px); }
+#loginView .login-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+#loginView .login-photo-base { filter: brightness(.78); }
+#loginView .login-photo-overlay {
+  opacity: .28;
+  mix-blend-mode: soft-light;
+  filter: brightness(.78);
+}
+#loginView .ab-vignette {
+  background: linear-gradient(90deg, rgba(5, 8, 7, .42), rgba(5, 8, 7, .5));
+}
+#loginView .ab-orb,
+#loginView .ab-beam,
+#loginView .ab-dust { display: none; }
+#loginView .emblem-logo {
+  filter: drop-shadow(0 5px 12px rgba(0, 0, 0, .42));
+  animation: none;
+}
+#loginView .auth-card::before {
+  animation: none;
+  background: linear-gradient(90deg, transparent 28%, rgba(var(--gold-rgb), .42) 50%, transparent 72%);
+  border-radius:22px 22px 0 0;
+}
+
 /* Slow warm aurora orbs drifting behind the card. */
 .ab-orb { position: absolute; border-radius: 50%; }
 .ab-orb.g1 {
